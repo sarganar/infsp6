@@ -1,0 +1,135 @@
+================================================================================
+  INFSP6 - INFORM IN SPANISH - Release Notes e Instrucciones - DocR 806.8
+================================================================================
+  Redactor: Sarganar.
+  "Para que quede bien claro: Urbatain es el de la didactica, no yo :P"
+================================================================================
+(este documento no usa vocales acentuadas)
+
+[0] - INTRO...
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+El proyecto INFSP (Inform in Spanish), busca los objetivos:
+
+  * Soporte en español para programar nuevos juegos en
+    Inform 6 (I6) e Inform 7 (I7) usando las librerias oficiales
+    (atributos, propiedades, acciones, etc. en el ingles original).
+
+  * Posibilidad de utilizar expansiones de I6 desarrolladas por
+    otras comunidades, como ORLibrary o GWindows.
+
+  * Facilitar la traduccion de juegos extranjeros al español.
+
+Se desarrollo sobre las siguientes premisas iniciales
+('iniciales' porque despues variamos un poco):
+
+  * Inform 6/11 (english) no se tocara para nada. Esto es, no se
+    reemplazara (hackeara) rutina alguna de los archivos del parser,
+    verlibs y asociados.
+
+  * Se seguiran los consejos para los archivos de idioma mostrados
+    en el DM4 y en las Release Notes de la libreria 6/11.
+
+  * Se reciclaran muchas de las rutinas de InformATE!, siempre que
+    no entren en conflicto con el kernel 6/11.
+
+Esta fuertemente basado en InformATE!; de hecho, se extrapolaron los
+archivos de idioma (Español y Gramatica) readaptandolos a Inform en
+ingles. Buen trabajo de Zak y amigos. Pero INFSP deja el nucleo Inform
+intacto, concentrandose en los archivos de idioma. Bueno no tan intacto,
+pues hay un par de hackeos por alli que decidimos importantes. ;-)
+Es algo muy similar al trabajo de Zak anterior a InformATE, solo que
+actualizado a la edicion 6/11 del parser. Con esto no se busca reemplazar
+InformATE!, ni declararlo obsoleto. Tiene que ver con otra forma mas de
+hacer lo mismo: programar aventuras. Busca abrir la posibilidad de poder
+usar extensiones extranjeras y quedar 'pegado' al avance oficial del
+parser de Graham.
+
+                                                (extraido del foro del CAAD)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+[1] - QUIERO INSTALAR LA LIBRERIA INFSP6...
+
+El paquete que has descargado contiene INFSP en su rama para Inform6
+(INFSP6). Actualmente Inform6 e Inform7 han tomado caminos separados
+, ya que I7 adopta en su ultima version un nuevo sistema de "traduccion" con
+"extensiones de internacionalizacion"; forma distinta al antiguo
+metodo de "traducir los archivos de idioma de la libreria".
+
+Con este cambio, INFSP6 e INFSP7 dejan de ser compatibles y, al igual
+que Inform6 e Inform7, toman ahora caminos separados.
+
+A partir de la version 0.9-R806.1, INFSP6 se convierte en una libreria
+paralela a INFSP7, especialmente preparada para Inform6 y su Libreria 6/11.
+
+¡Disfruta programando con INFSP6! =D
+
+El sistema Inform6 se puede dividir en tres componentes:
+  - El Parser.
+  - Los Archivos de Idioma.
+  - Las Librerias o Extensiones de terceros que expanden las
+    posibilidades del Parser.
+
+Para empezar a crear aventuras, necesitaras los dos primeros:
+
+  - El Parser: necesitaras la Libreria Inform 6/11 (27 de Febrero de 2004).
+    Bajala desde la siguiente direccion porque no se incluye en este paquete.
+    http://www.ifarchive.org/indexes/if-archiveXinfocomXcompilersXinform6Xlibrary.html
+
+  - Los Archivos de Idioma: son los archivos "Spanish.h", "SpanishG.h",
+    "INFSPR.h" del directorio "Libreria INFSP6" de este paquete.
+
+Luego de tener el Parser (Lib. Inform 6/11 completa) en un directorio llamado, por
+ejemplo, "Inform", copia los tres Archivos de Idioma en el mismo directorio
+del Parser y con eso ya estara instalada la libreria INFSP6.
+
+Cuando compiles tu juego (hay juegos de ejemplo en el directorio "Ejemplos"),
+NO OLVIDES PASARLE AL COMPILADOR LA VARIABLE DE COMPILACION...
+
++language_name=Spanish
+(para que use la libreria INFSP6)
+
+... ADEMAS DE INDICARLE CORRECTAMENTE LOS DIRECTORIOS DONDE ESTAN LAS
+LIBRERIAS Y EXTENSIONES DE TERCEROS.
+
+
+[2] - NO TENGO CONOCIMIENTO PARA HACER TODO ESTO...
+
+Bueno, ¡a no desanimarse! Pregunta en el foro del CAAD, en el subforo
+"Inform". El sitio web del CAAD esta lleno de buenos tutoriales. Y gente
+muy amigable dispuesta a ayudar.
+
+El tutorial "La Torre", en el directorio "Docs" tambien es un buen punto
+de partida.
+
+
+[3] - ¿DOCUMENTACION AL RESPECTO?...
+
+¿En ingles o en español? Hallaras muy buenos enlaces en:
+http://www.caad.es/informate/infsp/index.html
+http://www.caad.es/informate/enlaces.html
+
+
+[4] - CONTACTO...
+
+[-- INFSP Task Force --]
+
+SARGANAR:    sarganar (AT) gmail (DOT) com
+URBATAIN:    urbatain (AT) gmail (DOT) com
+ELIUK BLAU:  eliukblau (AT) gmail (DOT) com
+
+Tambien nos puedes encontrar en el foro de Inform en CAAD:
+http://www.caad.es/foro/viewforum.php?f=12
+
+UN CONSEJO: Al iniciar un nuevo hilo en el foro, siempre pon [I6] o [INFSP6]
+en el titulo, seguido de unas palabras que resuman "eficientemente" el
+problema. (Busca antes a ver si el problema no se ha tratado ya.)
+
+Ejemplo: [I6] Error al Compilar.
+
+¡Saludos!
+
+Sarganar.
+
+- Fin del Documento -

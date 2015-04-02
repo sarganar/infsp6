@@ -1,0 +1,686 @@
+!% -D
+!% +language_name=Spanish
+
+Constant Story "Prueba INFSP";
+Constant Headline "^Banco de pruebas de la librería Spanish para inform 6.^";
+Serial   "051223";
+
+Constant NO_SCORE;
+!Constant IMPRIMIR_DEDUCCIONES;
+Constant ADMITIR_COMANDO_SALIDAS;
+Constant MANUAL_PRONOUNS;
+
+Constant MAX_CARRIED = 5;
+Constant SACK_OBJECT = mochila;
+
+Include "Parser";
+Include "Verblib";
+
+Object mochila "mochila"
+with description [;
+	print "Es grande y tiene una sonrisa pintada.^";
+	WriteListFrom(child(mochila));
+	rtrue;
+	],
+name "mochila", articulo "tu",
+when_closed "Tu mochila está tirada en el suelo.",
+when_open "Tu mochila está abierta en el suelo.",
+has container openable female clothing;
+
+
+
+Object vacio "Vacío vacuo"
+with
+  description
+    "Un lugar vacío. Al norte hay un lugar con objetos variados, al este
+      un lugar con objetos idénticos (plurales), al oeste un lugar con
+      objetos de escenario, al sur un lugar con objetos ambiguos (nombres
+      parecidos) y al suroeste está el lugar del género y el número, y al 
+      nordeste un patio de la clase exterior a techo descubierto.",
+  n_to variados,
+  e_to plurales,
+  w_to decorados,
+  s_to ambiguos,
+  sw_to gennum,
+  ne_to patio,
+has
+  light;
+
+
+!================================================================
+
+Object variados "Lugar de objetos variados"
+with
+  name 'irrelevante',
+  description
+    "Al sur vuelves al lugar vacío. Aqui hay una mesa. En el suelo hay una trampilla.",
+  s_to vacio,
+  d_to sotano,
+has
+  light;
+
+Object -> raton "ratón de ordenador"
+with
+  description
+    "Es un ratón serie, compatible Microsoft.",
+  name 'raton' 'saltar',
+  adjectives 'ordenador' 'serie';
+
+Object -> papel "papel"
+with
+  description "Un folio en blanco.",
+  name 'papel' 'folio',
+  name_f 'cuartilla' 'hoja',
+  gender G_MASCULINO;
+
+Object -> ornitorrinco "ornitorrinco"
+with
+  description
+    "Pico de pato, cubierto de pelo... ya sabes.",
+  name 'ornitorrinco' 'animal',
+  describe "Por aquí anda un ornitorrinco."
+has
+  animate;
+
+Object -> bombilla "bombilla"
+with
+  description
+    "Una bombilla, con el filamento fundido.",
+  name_f 'bombilla',
+  name_m 'filamento',
+  gender G_FEMENINO;
+
+Object -> mesa "mesa de roble"
+with
+  description
+    "Es una gran mesa de roble.",
+  name 'mesa',
+  adjectives 'roble'
+has
+  supporter female scenery enterable;
+
+Object -> armario "armario de cedro"
+with
+  description
+    "Es un enorme armario de madera de cedro.",
+  name 'armario',
+  adjectives 'cedro' 'madera',
+has
+  male container enterable openable ~open static;
+
+Object -> trampilla "trampilla"
+with
+  description
+    "Parece que lleva a un sótano.",
+  name_f 'trampilla',
+  name_m 'agujero',
+  gender G_FEMENINO,
+  door_to sotano,
+  door_dir d_to,
+has
+  scenery door open;
+
+!================================================================
+
+Object plurales "Habitación de los objetos plurales"
+with
+  description "Hacia el oeste vuelves al lugar vacío.",
+  w_to vacio
+has
+  light;
+
+Class Letra
+with
+  name 'letra' 'letras//p',
+  adjectives 'un' 'juego' 'scrabble',
+  list_together [;
+    if (inventory_stage == 1)
+    {
+      print "las letras ";
+      ! Modificamos el estilo temporalmente
+      c_style = c_style | ENGLISH_BIT | NOARTICLE_BIT;
+      c_style = c_style & (~NEWLINE_BIT) & (~INDENT_BIT);
+    }
+    else
+      print " de un juego de Scrabble";
+  ],
+  short_name [;
+    if (listing_together ofclass Letra)
+      rfalse;
+    print "letra ", (object) self;
+    if (~~preguntacualexactamente) ! [diferente]
+      print " de un juego de Scrabble";
+    rtrue;
+  ],
+  article "la"
+has
+  female;
+
+Letra -> "X" with name 'x//';
+Letra -> "Y" with name 'y//';
+Letra -> "Q" with name 'q//';
+Letra -> "F" with name 'f//';
+
+Class MonedaOro
+with
+  name 'moneda' 'monedas//p',
+  adjectives 'oro',
+  short_name "moneda de oro",
+  plural "monedas de oro"
+has
+  female;
+
+Class MonedaPlata
+with
+  name 'moneda' 'monedas//p',
+  adjectives 'plata',
+  short_name "moneda de plata",
+  plural "monedas de plata"
+has
+  female;
+
+Class MonedaBronce
+with
+  name 'moneda' 'monedas//p',
+  adjectives 'bronce',
+  short_name "moneda de bronce",
+  plural "monedas de bronce"
+has
+  female;
+
+Object -> bolsa "bolsa"
+with
+  name 'bolsa'
+has
+  container openable open female;
+
+MonedaOro ->->;
+MonedaOro ->->;
+MonedaOro ->->;
+MonedaPlata ->->;
+MonedaPlata ->->;
+MonedaBronce ->->;
+MonedaBronce ->-> with adjectives 'oxidada',
+                       short_name "moneda de bronce oxidada";
+
+
+!================================================================
+
+Object ambiguos "Lugar de los objetos ambiguos"
+with
+  description "Al norte vuelves al lugar vacío.",
+  n_to vacio
+has
+  light;
+
+Object -> telefono "teléfono gris"
+with
+  name 'telefono' 'aparato' 'telefonico',
+  adjectives 'gris',
+  description "El cable está cortado."
+has
+  transparent;
+
+Object ->-> auricular "auricular del teléfono"
+with
+  name 'auricular',
+  adjectives 'telefono',
+  description "Ya no tiene utilidad.";
+
+Object -> factura "factura de teléfono"
+with
+  name 'factura',
+  adjectives 'telefono',
+  description "Es astronómica. Tal vez por eso han cortado el cable."
+has
+  female;
+
+Object -> telefonorojo "teléfono rojo"
+with
+  name 'telefono',
+  adjectives 'rojo',
+  description "Un teléfono rojo. ¿Con quién comunicará?";
+
+Object -> rojo "Rojo"
+with
+  name_m 'rojo' 'diablo',
+  adjectives 'gordo',
+  description "Un diablo gordo."
+has
+  animate proper;
+
+! ====================================================================!
+!       Periodicos
+! ====================================================================!
+
+Class periodico
+with short_name [;
+        print "periódico del ", (string) self.fecha,"";
+    rtrue;
+    ],
+name 'diario' 'periodico' 'pagina',
+fecha "dia Y mes X",
+description [;
+     print "El ~Diario de Purfleet~, ", (string) self.fecha, ". Lo tengo listo para leer en ";
+  self.describepagina();
+ ".";
+ ],
+numeropagina 1,
+describepagina [;
+    switch (self.numeropagina) {
+        1:
+              print "los titulares";
+        2:
+ 
+            print "la página 2";
+        3:
+ 
+             print "la página 3";
+        default: print "ERROR: número de página incorrecto.";
+        }
+ ],
+before [;
+ Close: self.numeropagina=1;
+         "Lo cierro por los titulares.";
+  Open:
+     "No es necesario, los periódicos siempre están abiertos listos para leer.";
+ 
+ Turn:
+     self.numeropagina++;
+     if (self.numeropagina>=4) {
+         self.numeropagina=1;
+               "No hay nada más interesante, así que lo cierro por los titulares.";
+         }
+     "OK.";
+ Examine: switch (self.numeropagina) { ! lee
+     1: self.pagina1();
+     2: self.pagina2();
+     3: self.pagina3();
+     default: "ERROR: Número de página erróneo.";
+     }
+     rtrue;
+ ],
+pagina1 [;
+	print "Los titulares, nada importante hoy.";
+	],
+pagina2 [;
+	print "Pagina 2, tampoco nada importante.";
+	],
+pagina3 [;
+           print "La pagina 3 tiene un dibujo de una chica joven en pose provocativa. Su falda está subida hasta enseñar su tobillo por completo. ¡Hasta donde vamos a llegar!^";
+  ],
+;
+
+!       Periodicos
+!       ----------
+
+
+periodico diario8_8 "periódico del 8 de agosto" ambiguos
+with name "periodico" "agosto" "8",
+fecha "8 de agosto",
+pagina1 [;
+          print "¡Los titulares son dramáticos!^^";
+            print"Fuego Destruye Molino de Algodón. Muchos Muertos^";
+ ],
+pagina2 [;
+          print "Página 2. Igualmente malas noticias...^^ ";
+          print "Carguero Naufragado en Whitby^";
+  ],
+;
+
+periodico diario9 "periódico del 9 de agosto" ambiguos
+with name "periodico" "agosto" "9",
+fecha "9 de agosto",
+pagina1 [;
+            print"El Misterio del Demeter^";
+ ],
+pagina2 [;
+          print "DIARIO DE A BORDO DEL ~DEMETER~. De Varna a Whitby^";
+  ],
+;
+
+periodico diario18 "diario del 18 de agosto" ambiguos
+with name "periodico" "agosto" "18",
+fecha "18 de agosto",
+pagina1 [;
+	print "Nada interesante en los titulares: política^";
+ ],
+pagina2 [;
+            print "La Peligrosa Aventura de Nuestro Entrevistador y el Lobo que se Escapó^
+	Entrevista con el Cuidador del Zoológico^";
+ ],
+pagina3 [;
+
+        print "Continúa la entrevista con el cuidador.^";
+  ],
+;
+
+!================================================================
+
+Object decorados "Lugar de las decoraciones"
+with
+  description "Este lugar está ricamente decorado, a base de
+    tapices, cuadros, candelabros, alfombras y graffiti. Hacia
+    el este vuelves al lugar vacío.",
+  e_to vacio
+has
+  light;
+
+Object -> tapices "tapices"
+with
+  description "Los tapices muestran imágenes abstractas.",
+  name 'tapices'
+has
+  scenery pluralname;
+
+Object -> cuadros "cuadros"
+with
+  description "Son cuadros de Tapies, no muy diferentes de los
+    tapices.",
+  name 'cuadros' 'tapies'
+has
+  scenery pluralname;
+
+Object -> alfombras "alfombras"
+with
+  description "Alfombras persas.",
+  name 'alfombras',
+  adjectives 'persas'
+has
+  scenery pluralname female;
+
+Object -> candelabros "candelabros"
+with
+  description "Candelabros dorados, pero sin luz.",
+  name 'candelabros',
+  adjectives 'dorados'
+has
+  scenery pluralname;
+
+Object -> graffiti "graffiti"
+with
+  description "Los huecos entre cuadros y tapices dejan ver la
+    pared, decorada con graffiti.",
+  name 'graffiti'
+has
+  scenery ;
+
+!================================================================
+
+Object sotano "Sótano lúgubre"
+with
+  description "Con luz el sótano informita ya no parace tan
+               lúgubre. Hay una escalera para subir.",
+  u_to escalera,
+has
+  light;
+
+Object -> interruptor "interruptor"
+with
+  description "Es un interruptor para encender y apagar la luz.",
+  name_m 'interruptor',
+  name_f 'luz',
+  gender G_MASCULINO,
+  after
+   [;
+     SwitchOn: give sotano light;
+     SwitchOff: give sotano ~light;
+   ],
+has
+  scenery on switchable;
+
+Object -> escalera "escalera"
+with
+  description
+    "Puedes subir por ella al lugar de los objetos variados.",
+  name 'escalera',
+  door_to variados,
+  door_dir u_to,
+has
+  scenery door open;
+
+!================================================================
+
+Object gennum "Lugar del género y el número gramatical"
+with
+ description "Aqui están todos los sexos posibles de informate.",
+ ne_to vacio,
+has light;
+
+Object -> nota "nota explicativa"
+with
+  name_f 'nota' 'explicativa',
+  name_m 'papel',
+  gender G_FEMENINO,
+  description [;
+      print "genero (Nuevo) Esta propiedad, exclusiva de la librería española, contiene el género y
+número de la cadena que se imprimirá como nombre de este objeto. Este género y
+número se expresa mediante un número entero, cuyos valores posibles son:^
+^
+0 Masculino singular (este es el valor por defecto)^
+1 Femenino singular^
+3 Masculino plural^
+4 Femenino plural^
+^";
+
+print "Para no tener que memorizar estos números que a simple vista carecen
+de significado, podemos hacer uso de las constantes G_MASCULINO, G_FEMENINO
+y G_PLURAL para obtener dichos valores. El modo de usarlas es muy sencillo,
+basta con sumar aquellas que representen el género y número del objeto en
+cuestión. Por ejemplo, G_MASCULINO + G_PLURAL indicaría género masculino y
+número plural, y G_FEMENINO indicaría género femenino y número singular (no
+hay ninguna constante que indique el género singular, pues no es necesaria).
+La librería usará esta propiedad para decidir qué artículo ha de poner delante de la
+palabra en cuestión. Si la propiedad no está presente (o vale 0), usará en cambio
+los atributos femenino y nombreplural. Puede parecer que estamos replicando
+innecesariamente la información ya que, si podemos darla en forma de atributos,
+¿por qué darla en forma de una propiedad adicional?^";
+print "^La razón estriba en que la propiedad genero es un valor constante, mientras que
+los atributos femenino y nombreplural pueden ser activados y desactivados varias
+veces por la librería, perdiéndose entonces el género y número del objeto.
+Todo esto es debido a que para referirse a un objeto, la librería usa siempre un
+mismo nombre (el que el programador le haya dado), por ejemplo nombre_corto
+~baúl~, cuyo género y número es invariable (la palabra baúl siempre es masculina
+singular), sin embargo el jugador para referirse a ese mismo objeto podría usar
+una gran variedad de sinónimos (nombre ’baul’ ’arca’ ’arcon’ ’cofre’
+etc.) y algunos son masculinos y otros femeninos. La librería española detecta si la
+palabra usada por el jugador es masculina o femenina, y entonces cambia el atributo
+femenino de ese objeto. Si, por ejemplo, el jugador dice «ABRE ARCA», la
+librería activará el atributo femenino para ese objeto, mientras que si dice «ABRE
+COFRE», desactivará ese atributo. De este modo los mensajes por defecto de la librería
+siempre concordarán en género y número con la palabra usada por el jugador
+(por ejemplo, ante «ABRE ARCA», responderá ~Ya estaba abierta~ y, en cambio,
+ante «ABRE COFRE» respondería ~Ya estaba abierto~).^";
+
+print "^Así que los atributos femenino y nombreplural van variando según las palabras
+que use el jugador. Por eso es necesaria otra propiedad que guarde el género y
+número del nombre_corto del objeto pues, de lo contrario, el artículo que la librería
+ponga delante de él sería ~la~ o ~el~ dependiendo de cómo se hubiera referido el
+jugador a este objeto por última vez. Por ejemplo: «ABRE ARCA», ~Abres la baúl~.
+Insistimos en que el nombre del objeto que imprime la librería es siempre ~baúl~,
+aunque el jugador pueda usar diferentes sinónimos.^
+^
+Si el objeto no tiene sinónimos de diferentes géneros o números, entonces sus atributos
+femenino y nombreplural no cambian nunca, por lo que no es necesario
+definir su propiedad genero. En cambio, si tiene sinónimos de géneros o números
+diferentes, el programador deberá darle a la propiedad genero el valor adecuado,
+según el género y número del nombre principal (el nombre corto). Si se omite esta
+propiedad, la librería mantendrá siempre el género y número dado por los atributos
+femenino y nombreplural, que no serán modificados nunca (aunque el jugador use
+sinónimos de diferente género y número).^
+^
+Véanse también las propiedades nombre_m, nombre_f, nombre_mp, nombre_fp y
+las constantes G_MASCULINO, G_FEMENINO y G_PLURAL^";
+"";
+],
+has female;
+  
+Object -> trozo "trozo de madera"
+with name_m 'trozo' 'algo',
+  name_f 'madera',
+  gender G_MASCULINO,
+  description "Un trozo de... masculino, singular.";
+  
+Object -> ojos "ojos"
+with
+  name_mp 'ojos',
+  gender G_MASCULINO+G_PLURAL,
+  description "Unos ojos... tal cual, masculino, plural.",
+has pluralname;
+
+Object -> hormigas "hormigas"
+with
+  name_fp 'hormigas',
+  gender G_FEMENINO+G_PLURAL,
+  description "Hormigas, sólo se les puede considerar femeninas y plurales.",
+has pluralname female;
+
+Object -> pepe "Pepe"
+with
+  name_m 'pepe',
+  gender G_MASCULINO,
+  description "Pepe, masculino, singular y propio.",
+has proper;
+
+Object -> pepa "Pepa"
+with
+ name_f 'pepa',
+ gender G_FEMENINO,
+ description "Pepa, femenina, singular, propia.",
+has proper female;
+
+Object -> ramones "Ramones"
+with
+  name_mp 'ramones',
+  gender G_MASCULINO+G_PLURAL,
+  description "No los ramones, sino que son Ramones, masculino, plural, propio, ¿eso existe?",
+has pluralname proper;
+
+Object -> ramonas "Ramonas"
+with
+  name_fp 'ramonas',
+  gender G_FEMENINO+G_PLURAL,
+  description "Una asociación feminista de pueblo. Femeninas y plurales y propias.",
+has female pluralname proper;
+
+Class ropa
+with 
+name_fp 'prendas',
+name_f 'ropa',
+list_together "prendas de ropa",
+ has clothing;
+
+object -> cruz "cruz de dracula"
+with
+  name_f 'cruz',
+  gender G_FEMENINO,
+  description "¿Como ha llegado aqui?",
+  has female;
+ 
+ropa -> guante "guante"
+with name_m 'guante',
+  gender G_MASCULINO,
+  description "Un guante... masculino, singular.";
+  
+ropa -> pantalones "pantalones"
+with
+  name_mp 'pantalones',
+  name 'pantalon',
+  name_fp 'mallas',
+  gender G_MASCULINO+G_PLURAL,
+  description "Unos pantalones... tal cual, masculino, plural. Pero parece que son unas mallas.",
+has pluralname;
+
+ropa -> bragas "bragas"
+with
+  name_f 'braga',
+  name_fp 'bragas',
+  name_m 'tanga',
+  gender G_FEMENINO+G_PLURAL,
+  description "bragas, sólo se les puede considerar femeninas y plurales. Pero es tipo tanga.",
+has pluralname female;
+
+object -> danoisildur "Dañodeisildur"
+with
+  name_m 'danoisildur' 'anillo',
+  gender G_MASCULINO,
+  description "Dañoisildur, nombre propio del famoso anillo único: masculino, singular y propio.",
+  before [;
+  	Touch, Wear: deadflag=1;
+  		"El anillo te corrompe y...";
+  ],
+has proper clothing;
+
+ropa -> garra "Garra"
+with
+ name_f 'garra',
+ name_m 'mano',
+ gender G_FEMENINO,
+ description "Garra, era el nombre de la mona a la cual se le cortó la mano tan famosa que da deseos, por tanto este objeto heredó el nombre de la difunta Garra, además es una prenda de ropa porque alguien lo convirtió en un colgante: femenina, singular, propia.",
+has proper female;
+
+ropa -> absurdos "Absurdos"
+with
+  name_mp 'absurdos',
+  gender G_MASCULINO+G_PLURAL,
+  description "Esto ya es absurdo, ¿de donde saco yo un objeto que sea prenda y encima sean masculino, plural, propio, ¿eso existe?",
+has pluralname proper;
+
+ropa -> absurdas "Absurdas"
+with
+  name_fp 'absurdas',
+  gender G_FEMENINO+G_PLURAL,
+  description "Esto ya es absurdo, ¿de donde saco yo un objeto que sea Femeninas y plurales y propias.",
+has female pluralname proper;
+
+!================================================================
+
+! Este par de localidades han sido creadas para testear ADENTRO y AFUERA. Ha servido para comprobar el comportamiento natural
+! heredado de inform6. Esto nos da una regla de oro en la construcción de conexiones. Siempre hay que dar prioridad a 
+! DENTRO y FUERA si deseamos que varias conexiones lleven al mismo sitio (quizás a través de una puerta).
+! Fijaos que he programado la conexión con IN y OUT, y luego he capturado la salida al este-oeste para que llame a la
+! conexión real. Este debe de ser la forma correcta de programarlo, si lo hacemos al revés, SALIR a secas de la cueva
+! no funcionará bien.
+
+Object patio "Un patio sin techo pero con cielo."
+with description "Cielo azul, tierra gris. Cueva oscura.",
+sw_to vacio,
+in_to cueva_oscura,
+before [;
+Go: if (noun==e_obj) <<go in_obj>>;
+],
+has light;
+
+Object cueva_puerta "cueva" patio
+with name 'cueva',
+description "Es muy oscura, está situada al este de aqui (o adentro).",
+  door_to cueva_oscura,
+  door_dir in_obj,
+has
+  scenery door open female;
+
+object cueva_oscura "Estás en una cueva oscura."
+with description "Que no va más allá de una hendidura en la roca. La salida queda al oeste.",
+out_to patio,
+before [;
+Go: if (noun==w_obj) <<go out_obj>>;
+],
+;
+
+!================================================================
+
+
+[ Initialise y;
+
+  move mochila to player;
+  give mochila worn;
+
+  location = vacio;
+  lookmode = 2;
+ 
+  "^Bienvenido al banco de pruebas del parser...^";
+
+];
+
+Include "SpanishG";
+

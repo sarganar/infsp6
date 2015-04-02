@@ -1,0 +1,45 @@
+================================================================================
+  INFSP6 - INFORM IN SPANISH - Adopciones de InformATE! - DocR 806.1
+================================================================================
+(este documento no usa vocales acentuadas)
+
+Caracteristicas que INFSP6 incorpora de InformATE!:
+
+- Gran parte de la Gramatica de InformATE!, en el mismo orden.
+
+- Listado automatico de salidas. Uso de ADMITIR_COMANDO_SALIDAS,
+  propiedad 'salidas' y verbo "Salidas".
+
+- Uso de genero en sinonimos:
+  + name_m, name_mp
+  + name_f, name_fp
+  + adjectives, gender (observar que estan en ingles)
+
+- Rutinas de impresion:
+  + (es), (_Es)
+  + (un), (_Un)
+  + (el), (_El)
+  + (al), (_Al)
+  + (del), (_Del)
+  + (o), (s), (_s)
+  + (n), (lo), (_nombre_)
+  + (coge), (Mcoge), (MMcoge)
+
+- Accion Quitar, Xlista, Bajar.
+
+- Dialecto Sudamericano/Castellano.
+
+- Rutina ChooseObjects (ElijeObjetos), para la puntuacion de objetos.
+
+- Filosofia de Verbos Irregulares.
+
+- Slot 0 en propiedad articles
+  + with articles "El" "el" 0
+
+- Rutina TextoLlamativo disponible para usar.
+
+----------------------------------------------------------
+Para consultas de estas caracteristicas, ver DocumentATE!
+http://www.caad.es/informate/docs/documentate.html
+
+- Fin del Documento -

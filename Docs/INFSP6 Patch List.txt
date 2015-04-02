@@ -1,0 +1,110 @@
+================================================================================
+  INFSP6 - INFORM IN SPANISH - Patch List - DocR 809.1
+================================================================================
+(este documento no usa vocales acentuadas)
+
+Retoques minimos que necesita la libreria para funcionar adecuademante
+segun alguna necesidad especifica de algun autor de aventuras.
+
+Para ver mas parches puedes consultar la lista de la comunidad inglesa en:
+http://www.inform-fiction.org/patches/library.html
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+[1] - EL PARSER IMPRIME EN PARENTESIS SUS DEDUCCIONES...
+
+>examina kryss
+(Kryss)
+Tan hermosa como siempre
+
+*** Ir a 'parserm.h' y ubicarse cerca de la linea 1870:
+---------------------------------------------------------------------------
+! ...explain any inferences made (using the pattern)...
+
+if (inferfrom ~= 0) {
+  print "("; PrintCommand(inferfrom); print ")^";
+}
+---------------------------------------------------------------------------
+
+*** Cambiarla por esto:
+---------------------------------------------------------------------------
+! ...explain any inferences made (using the pattern)...
+#ifdef IMPRIMIR_DEDUCCIONES; !infsp hack
+if (inferfrom ~= 0) {
+  print "("; PrintCommand(inferfrom); print ")^";
+}
+#endif;! infsp hack
+---------------------------------------------------------------------------
+
+Listo, con esto deberia andar. Para re-activar las deducciones, debes
+declarar la constante IMPRIMIR_DEDUCCIONES en algun lugar, por ejemplo
+al principio de parserm.h
+
+Otra opcion, aportada por Mel Hython, es simplemente comentar las lineas
+del 'if', dejando sin efecto la impresion de deducciones.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+[2] - EL OBJETO 'LIBRARYMESSAGES' NO SETEA 'LM_O' ANTE LA ACCION 'TAKE'...
+
+Object LibraryMessages
+  with
+    before [;
+      Take:
+        if (lm_n == 1) { "Recoges ", (the) lm_o, "."; }
+    ];
+
+En INFSP6, un codigo como el de este ejemplo mostrara un mensaje incorrecto,
+algo parecido a "Recoges nada", y una serie de textos de warning del parser.
+Esto se produce porque, al contrario de InformATE!, la accion TAKE de INFSP6
+nunca le pasa a la rutina L__M() [la que imprime los mensajes por defecto
+de la libreria] el objeto ('noun') sobre el cual se realiza dicha accion.
+En consecuencia, la variable 'lm_o' siempre tendra un valor nulo en una
+accion TAKE (ocurre solo en esta accion) y no servira para ocuparla en
+la impresion de mensajes personalizados, como en el ejemplo.
+
+Existes tres formas de solucionar esto:
+
+FORMA 1:
+--------
+Esta es la mas sencilla y, en la practica, no deberia fallar...
+Consiste simplemente en no usar 'lm_o' y en su lugar ocupar 'noun'.
+Esta solucion la aporto Mel Hython.
+
+FORMA 2:
+--------
+Esta implica un 'hackeo'. Consiste en modificar la rutina TakeSub() ORIGINAL
+en el archivo 'verblibm.h'. Hay que ubicarse cerca de la linea 1540...
+
+*** La ultima linea de la rutina TakeSub() pone:
+      L__M(##Take, 1);
+
+*** Cambiarla por esto:
+      L__M(##Take, 1, noun);
+
+FORMA 3:
+--------
+Esta consiste en reimplementar la rutina TakeSub() en el propio codigo
+de la aventura y asi no se debe hackear nada. Para lograrlo, se debe
+copiar el siguiente codigo despues de incluir el Parser:
+
+---------------------------------------------------------------------------
+Replace TakeSub;
+[ TakeSub;
+    if (onotheld_mode == 0 || noun notin player)
+        if (AttemptToTakeObject(noun)) rtrue;
+    if (AfterRoutines() == 1) rtrue;
+    notheld_mode = onotheld_mode;
+    if (notheld_mode == 1 || keep_silent == 1) rtrue;
+    L__M(##Take, 1, noun); ! *** HACK: PASAMOS EL OBJETO ('noun') ***
+];
+---------------------------------------------------------------------------
+
+Aplicando las soluciones 2 o 3, ya se puede ocupar sin ningun problema
+la variable 'lm_o' en un mensaje personalizado para la accion TAKE,
+mediante el objeto 'LibraryMessages'.
+(Eliuk Blau)
+
+- Fin del Documento -

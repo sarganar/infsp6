@@ -1,0 +1,90 @@
+!% -D
+!% +language_name=Spanish
+! Las dos lineas de arriba deben estar siempre primero,
+! 	le dicen a Inform que compile en modo debug y en español
+! Para la pubilcacion, puede eliminarse la 1ra linea (modo debug)
+
+! =====================================================================
+! Plantilla de juego minimo compilable en Inform6
+!        Author: Morgul
+! Serial Number: 806.1
+!          Note: For use with Inform 6. (Tested with Inform compiler
+!                version 6.31 and Inform library 6/11).
+!   Description: "Una plantilla básica de juego en I6."
+!================================================================
+
+! "Nombre_del_juego"
+!
+! REALIZADO POR: Nombre_del_autor
+!
+! Copyright (C) Año Nombre_del_autor
+
+
+! CONSTANTES
+
+Constant Story "~Nombre_del_juego~";
+Constant Headline "^Realizado por: Nombre_del_autor^^
+  (C) Año Nombre_del_autor^";
+Release 0;  ! Cuando se vaya a distribuir cambiar por 1
+
+! Queremos usar el comando 'Salidas'
+Constant ADMITIR_COMANDO_SALIDAS;
+! No queremos usar los comandos 'Lugares' y 'Objetos'
+Constant NO_PLACES;
+! No queremos usar puntuación
+Constant NO_SCORE;
+
+
+! VARIABLES GLOBALES
+
+
+! INCLUDES Y REPLACES
+
+Include "Parser";
+Include "Verblib";
+
+
+Include "SpanishG";
+
+! Con la siguiente línea tenemos las clases Objeto y Habitacion
+Include "Facilitar";
+
+
+! HABITACIONES
+
+! Ejemplo de habitación
+Habitacion LOCALIZACION_INICIAL
+  with
+    description "Descripción_de_la_habitación";
+
+
+! OBJETOS
+
+! Ejemplo de objeto
+Objeto OBJETO_INICIAL "nombre_completo_del_objeto"
+  with
+    name 'nombre_corto_del_objeto',
+    adjectives 'adjetivos_del_objeto',
+    description "Descripción_del_objeto";
+
+
+! RUTINAS
+
+! Rutina principal y obligatoria de todo juego Inform
+[ Initialise;
+! Esto es para que el juego dé siempre la descripción de la habitación, aunque
+! ya la hayamos visitado
+  lookmode = 2;
+
+! Localización donde comienza el jugador
+  location = LOCALIZACION_INICIAL;
+
+! Objetos que lleva al principio el jugador
+  move OBJETO_INICIAL to player;
+];
+
+
+! LINEAS DE GRAMATICA
+
+
+! RUTINAS VERBOSUB

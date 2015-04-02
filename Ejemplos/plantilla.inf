@@ -1,0 +1,263 @@
+!% -~S~D
+!% +language_name=Spanish
+!%
+! Las opciones de arriba son comandos especiales que el compilador leera,
+! por eso deben estar al principio del archivo antes que cualquier otra cosa.
+! Detalles:
+!     !% -~S~D
+!     (desactiva el modo STRICT y el modo DEBUG en la compilacion del juego).
+!
+!     !% +language_name=Spanish  [IMPORTANTISIMO]
+!     (le dice a Inform que cargue los archivos de idioma Spanish de INFSP).
+!
+!===============================================================================
+! Plantilla v3 para la Libreria Inform 6/11 + Libreria Española INFSP6
+! ** Creada por Eliuk Blau (DreamBytes Adventures) **
+!===============================================================================
+!  NOMBRE DE LA AVENTURA
+!  Codigo Fuente
+!===============================================================================
+!
+!  Archivo :  aventura.inf
+!  Fecha   :  AAAA/MM/DD
+!  Version :  [release].[serial]
+!  Autor   :  Nombre Nickname
+!  e-Mail  :  creador AT mail DOT com
+!
+!  Descripcion: Sencilla aventura conversacional escrita en lenguaje Inform,
+!               ocupando la Libreria Española INFSP.
+!
+!===============================================================================
+!
+!  Log:
+!  AAAA/MM/DD  Programador - Se crea el archivo.
+!
+!-------------------------------------------------------------------------------
+
+!===============================================================================
+! (1) Constantes; Variables Globales; Replaces; Propertys; Incluir Parser.h
+!-------------------------------------------------------------------------------
+Constant Story "Titulo del Juego";
+Constant Headline "^Nombre del Autor y Copyright^";
+
+Release 1;
+Serial "000001";
+
+! Queremos usar el comando 'salidas'
+Constant ADMITIR_COMANDO_SALIDAS;
+
+! Cuando el jugador gane se le preguntara si desea conocer algunas
+! curiosidades sobre el juego
+Constant AMUSING_PROVIDED;
+
+! Ofrece 'deshacer el ultino movimiento' cuando el juego termine
+! Constant DEATH_MENTION_UNDO;
+
+! Los pronombres reflejaran solamente los objetos mencionados el jugador
+! (el parser no deducira objetos implicitamente en las acciones)
+! Constant MANUAL_PRONOUNS;
+
+! No se podran usar los comandos 'OBJETOS' ni 'LUGARES'
+! Constant NO_PLACES;
+
+! Numero maximo de objetos que el jugador puede llevar directamente
+! en el inventario (por defecto: 100)
+! Constant MAX_CARRIED = 10;
+
+! Un objeto contenedor que la libreria usara para guardar dentro objetos
+! cuando el inventario del jugador llegue a su maxima de capacidad
+Constant SACK_OBJECT = mochila;
+
+! Desactiva completamente el sistema de puntuacion del juego
+! Constant NO_SCORE;
+
+! Activa el sistema de puntuacion por tareas realizadas
+! (ademas se debe crear un array llamado 'task_scores')
+Constant TASKS_PROVIDED;
+
+! Numero de tareas que el jugador debe realizar a lo largo
+! del juego (por defecto: 1)
+Constant NUMBER_TASKS = 3;
+
+! Puntuacion maxima del juego (por defecto: 0)
+Constant MAX_SCORE = 150;
+
+! Puntaje que obtendra el jugador por cada objeto con puntuacion
+! cuando lo coja por primera vez (por defecto: 4)
+! Constant OBJECT_SCORE = 2;
+
+! Puntaje que obtendra el jugador cuando entre en una localidad
+! con puntuacion por primera vez (por defecto: 5)
+! Constant ROOM_SCORE = 3;
+
+! El array que contiene los puntos por cada tarea realizada
+Array task_scores -> 50 50 50;
+
+Include "Parser";
+
+
+!===============================================================================
+! (2) Puntos de Entrada para Glk [solo en Glulx]:
+!     - InitGlkWindow(), IdentifyGlkObject(), HandleGlkEvent()
+!-------------------------------------------------------------------------------
+
+
+!===============================================================================
+! (3) Modificar Mensajes de la Libreria; Otros Includes; Incluir VerbLib.h
+!-------------------------------------------------------------------------------
+Object LibraryMessages
+  with
+    before [ ;
+      Prompt:
+        print "^|> ";
+        rtrue;
+    ],
+;
+
+! Demostracion de uso de una Libreria de Extension: incluyendo 'SmartCantGo'
+! se listaran las salidas de la localidad actual de una manera mas clara en
+! vez del 'No puedes ir por ahi' cuando se escribe una direccion sin salida
+! Include "SmartCantGo";
+
+Include "VerbLib";
+
+
+!===============================================================================
+! (4) Rutina Initialise()
+!-------------------------------------------------------------------------------
+[ Initialise ;
+    ! Lugar de comienzo.
+    location = vacio_absoluto;
+
+    ! Activamos esta variable para que la descripción de los lugares
+    ! se repita siempre, incluso si el jugador ya ha estado alli.
+    lookmode = 2;
+
+    ! Mensaje de Bienvenida
+    "^^Bienvenid@@64 a...^";
+];
+
+
+!===============================================================================
+! (5) Rutinas de la Libreria Implementadas, Reemplazadas o Ampliadas
+!-------------------------------------------------------------------------------
+! Necesaria para imprimir el nombre de cada tarea dada
+[ PrintTaskName tarea;
+    switch(tarea) {
+      0: "por ponerte tu mochila de la suerte.";
+      1: "por meter tu nuevo muñeco en la mochila para llevártelo a casa.";
+      2: "por cerrar la mochila para que nadie vea que te llevas el muñeco.";
+    }
+];
+
+! Imprime el rango que el jugador a conseguido de acuerdo a la
+! puntuacion que tiene actualmente
+[ PrintRank ;
+    print ", otorgándote el rango de: ~";
+    switch (score) {
+      0: print "Niña Perdida";
+      50: print "Niña Habilosa";
+      100: print "Ladrona en Potencia";
+      150: print "Saqueadora de Tiendas";
+    }
+    print_ret "~.";
+];
+
+! Imprime las curiosidades
+[ Amusing ;
+    "Como te habrás dado cuenta, este juego es pésimo. @@94_@@94
+     Sólo es una demostración de la estructura básica que debe tener el
+     código fuente de tu juego para que puedas compilarlo correctamente.";
+];
+
+
+!===============================================================================
+! (6) Incluir SpanishG.h; Otros Includes
+!-------------------------------------------------------------------------------
+Include "SpanishG";
+
+
+!===============================================================================
+! (7) Clases del Juego
+!-------------------------------------------------------------------------------
+Class Localidad
+  has light
+;
+
+
+!===============================================================================
+! (8) Objetos del Juego
+!-------------------------------------------------------------------------------
+Localidad vacio_absoluto "En el vacío absoluto..."
+  with
+    name 'boquete' 'pared' 'paredes' 'exterior' 'luz',
+    description [ ;
+      print "No estás en ninguna parte";
+      if (self.out_to ~= 0) {
+        print ".^^En una pared se ha abierto un boquete que pareciera estar
+          invitándote a salir de este extraño lugar";
+      }
+      print_ret ".";
+    ],
+    out_to 0,
+    each_turn [ ;
+      if (self.out_to == 0 && score == MAX_SCORE) {
+        self.out_to = self.salida_abierta;
+        "^De pronto se abre un boquete en una de las paredes.
+        Debe dar al exterior porque ves luz.";
+      }
+    ],
+    salida_abierta [ ;
+      deadflag = 2;
+      "Cruzas el boquete y quedas en libertad. Te vas feliz porque
+      has conseguido un nuevo muñequito para tu colección...";
+    ],
+;
+
+Object -> munneco "muñeco"
+  with
+    name 'muneco' 'munequito' 'xyzzy',
+    adjectives 'felpudo',
+    description "Es un gracioso muñequito felpudo. Su nombre es ~Xyzzy~.",
+    after [ ;
+      Insert: Achieved(1);
+    ],
+;
+
+Object -> mochila "mochila"
+  has container openable clothing
+  with
+    name_m 'bolso',
+    name_f 'mochila' 'bolsa',
+    gender G_FEMENINO,
+    adjectives 'querida' 'suerte',
+    article "tu",
+    description "Es tu querida mochila de la suerte, siempre andas con ella.",
+    when_open "Tu mochila está abierta en el suelo.",
+    when_closed "Tu mochila está tirada en el suelo.",
+    after [ ;
+      Wear: Achieved(0);
+      Close: if (munneco in self) { Achieved(2); }
+    ],
+;
+
+
+!===============================================================================
+! (9) Otras Rutinas Reemplazadas; Rutinas Propias del Juego
+!-------------------------------------------------------------------------------
+
+
+!===============================================================================
+! (10) Verbos y Gramaticas Propias del Juego
+!-------------------------------------------------------------------------------
+Verb meta 'ayuda' 'ayudarme' 'ayudame' * -> Ayuda;
+VerboIrregular "obtener ayuda con el juego"
+  with imperativo 'ayuda' 'ayudarme' 'ayudame';
+
+
+!===============================================================================
+! (11) Rutinas de Acciones Propias del Juego
+!-------------------------------------------------------------------------------
+[ AyudaSub ;
+    "Este juego tiene una solución casi ridícula. ¡Vamos, inténtalo!";
+];

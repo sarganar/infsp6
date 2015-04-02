@@ -1,0 +1,219 @@
+================================================================================
+  INFSP6 - INFORM IN SPANISH - ChangeLog
+================================================================================
+(este documento no usa vocales acentuadas)
+
+Referencia: xxxxxx_git: Tomado de Repositorio Informate/.git (ej 030305_git)
+
+v0.9d - R 901.21
+  - Soporte para impresion de particulas "De", "Del", "De la", "De los", "De las" con
+	la primera letra en mayuscula. Rutina (_Del).- Eliuk Blau
+  - Agregado de algunas 'nuevas lineas' olvidadas.- Eliuk Blau
+  - Paquete: Nueva plantilla genérica de juego básico.- Eliuk Blau
+  
+  
+v0.9c - R 901.05
+  - Bug ImprimirListaDudosos (Spanish.h): Habia un problema en el listado
+	 de desambiguación. La salida era incorrecta. - Herring
+
+  - Corregido LanguageLM:Take:7 (Spanish.h): Se puso 'noun' en vez de x1. - Mel Hython
+
+v0.9b - R 808.2
+  - Arreglado bug en LanguageVerb, por lo que se mejoro la respuesta del
+    parser. (gracias Sothoth x detectar bug)
+    * Antes:
+        >este kjsldfas
+        Intenta de nuevo, porque solo te pude entender: esterte.
+        >e xvasd
+        Intenta de nuevo, porque solo te pude entender: er.
+
+v0.9 - R 806.8 - INFSP6 Reloaded
+  - Despedida ramas I6/I7:
+    "Luego de un emotivo adios, los equipos de desarrollo se fundieron en una
+    fiesta de confites, cerveza y musica makinera. Adios idiotas, nunca nos
+    gusto convivir con ustedes."
+  - Eliminacion de codigo aplicabe solo a I7 - gracias Eliuk Blau por
+    terminar la faena.
+  - Agregadas funciones multiVM: tokenCount, tokenLen, tokenPos, tokenDict
+    (Codigo de Roger Firth).
+  - DictionaryLookup compactada.
+  - InsertarLetraBuffer reemplazada por LTI_Insert (que viene de fabrica)
+  - QuitarAcentos compactada.
+  - EspanolAInformes compactada y refactorizada.
+  - ArreglarLosY compactada.
+  - EliminarDuplicados compactada.
+  - LanguageIsVerb compactada.
+  - Nueva rutina de impresion "A", "Al", "A la", "A los", "A las" con la
+    primera letra en mayuscula. Ej: print (_Al) noun; - Eliuk Blau.
+  - Rutina al_() compactada - Eliuk Blau.
+  - Correcciones y mejoras en los Documentos del paquete - Eliuk Blau.
+  - Brujula revisada - Eliuk Blau:
+    - se quita sinonimo 'lado'
+    + se agrega sinonimo 'piso'
+    + se agrega sinonimo 'ar' para "arriba"
+    + se agrega sinonimo 'ab' para "abajo"
+    + se agrega sinonimo 'adentro' para "Interior"
+    + se agrega sinonimo 'afuera' para "Exterior"
+
+V0.8q - R 712.6
+  - Agregada gramatica puntuacion "completa" como sinonimo de "total" - gracias
+    Eliuk Blau.
+  - Agregado nuevo mecanismo para poder trabajar con extensiones que modifiquen
+    completamente los mensajes estandares de la libreria (ej: mensajes en 1ra
+    persona). Las extensiones podran definir su propia rutina LanguageLM mas
+    otras constantes importantes. Y al definir la constante SIN_MENSAJES,
+    el compilador no incluira los mensajes por defecto - gracias Eliuk Blau.
+  - I7: Set compatibilidad con Inform 7 Build 5J39 - 1 Dic 2007.
+  - I7: Quitado el hacking de NounDomain de la compilacion para I7. Ahora se
+    usa el Noundomain original.
+
+V0.8p - R 711.12
+  - I7: Mejorada gestion de (coge). Ahora se puede usar la rutina (coge)
+    a la manera de I6 (usando sufijo >> print "No puedo",(coge)"r","lo";
+    [el sufijo es 'r']). El uso en I7 sigue igual (say "No puedo [coge]rlo".
+    [el sufijo es 'rlo']).
+  - Corregida la ocurrencia de la palabra "coger" en ##PutOn,1 - *071030_git
+  - Mejorado el comportamiento en los juegos que utilicen por defecto
+    el dialecto sudamericano, para que se informe al jugador la primera
+    vez que haga uso del verbo COGER. - *071030_git
+  - Nuevas entradas VerboIrregular para los infinitivos 'ingerir',
+    'retorcer' y 'volver', que solo eran reconocidos en su forma
+    imperativa. - *071030_git
+  - I7: Actualizada Noundomain () (INFSPR.h) a edicion I7B5G67
+  - I7: Actualizada Locale () (INFSPR.h) a edicion I7B5G67
+
+V0.8o - R 709.7
+  - TryGivenObject actualizado a edicion I7B4W37.
+  - PrefaceByArticle mejorado para que admita slots con 0 en propiedad
+    'articles', como en InformATE! - gracias Eliuk Blau.
+  - Mejor definicion de Array parseaux en seccion Glulx. Esto evita un
+    warning en INFSPR/DictionaryLookup - gracias Eliuk Blau.
+  - Correccion rutina (al) en seccion Glulx, habia un error que no imprimia
+    corretamente (al) objeto_nombre_propio - gracias Eliuk Blau.
+  - TextoLlamativo dejo de usarse para los mensajes de Muerte/Victoria.
+    En su lugar se usa el estilo de fabrica de Inform (que es el mismo
+    que usa TextoLlamativo por defecto). Habia un problema en el estilo
+    de los asteriscos finales. TextoLlamativo sigue disponible para
+    los autores - gracias Eliuk Blau.
+  - Agregada rutina (_Un) para imprimir al comienzo de una
+    oracion - gracias Eliuk Blau.
+  - Corregidas algunas palabras mal traducidas/acentuadas - gracias Eliuk Blau.
+
+V0.8ñ - R 707.12
+  - Corregido en el fichero de mensajes (Spanish) un mensaje de la accion
+    Lock (EcharCerrojo) al que le faltaba el punto final (se le ha añadido)
+    *030305_git.
+  - Añadido verbo 'reproducir' en accion CommandsRead (LeerComandos)
+    *030305_git.
+  - I7: Hackeo de Banner (Verblibm.h). MINIMO. Se tradujo " by " por
+    'escrita por' *Mel Hython.
+
+V0.8n - R 705.7
+  - Corregidos varios errores ortograficos. Gracias Depresiv!
+  - I7: Set compatibilidad con Inform 7 Build 4U65 - 27 Abril 2007.
+  - Agregado mensaje 8 para accion Look en Spanish.h (sincronizando
+    con English.h).
+  - I7: Actualizada NounDomain/INFSPR. Agregado codigo .RECONSTRUCT_INPUT, etc.
+  - I7: Arreglado bug en ##Insert,1 y ##Miscellany,26. Se utilizaba la rutina
+    (coge) a la manera de I6 (usando sufijo>>print "No puedo",(coge)"r","lo";).
+    Eso no puede hacerse en una compilacion I7 (que usa: say "No puedo
+    [coge]rlo". sin sufijos).
+
+V0.8m - R 703.26
+  - I7: Retoque rutina hackeada TryGivenObject para una correcta
+    desambiguacion al usar 'adjetives' (Ej; telefono rojo y Rojo (demonio)).
+  - I7: Set compatibilidad con Inform 7 Build 4S08 - 25 Mar 2007.
+  - I7: Separacion interna de 'xir' y 'irdonde' para I7. La nueva Build
+    agrego codigo adicional por lo que >xir nombre_habitacion daba error.
+  - I7: Hackeo de I6_PSN__(parserm.h). MINIMO. Se tradujo "Tu" en vez
+    de "You".
+
+V0.8k - R 701.26
+  - I7: Set compatibilidad con Inform 7 Build 4K41.
+  - Eliminados parser_listo y si_pl.
+  - Bug con texto "Has muerto" corregido.
+  - I7: Retoque rutinas coge, MCoge, MMCoge para arreglar bug en Inform 7.
+
+V0.8j - R 612.26
+  - I7: Set compatibilidad con Inform 7 Build 4F59.
+  - ChooseObjects ahora solo para Inform 6.
+
+V0.8i - R 612.11
+  - Agregado soporte en IdiomaPreguntarPrep para preguntar correctamente:
+    ">entra a
+     ¿A donde quieres entrar?".
+  - Arreglado problema con respuesta por defecto al intentar formas de
+    comunicacion con PSIs (dile, habla, cuenta, etc.).
+  - Re-mapeo de G_MASCULINO, G_FEMENINO,G_PLURAL y retoque de codigo para
+    permitir uso de 'gender' en I7. (retoques en LanguagePrintShortName,
+    ParseNoun, PrefaceByArticle).
+  - Preparacion como paquete para uso publico.
+
+V0.8h - R 611.15
+  - Agregado checkeo de minima version SL necesaria para I7.
+  - Agregado checkeo de version correcta de I7 necesaria, para sincronizar
+    con los testers. La version que infsp espera que se compile los juegos
+    esta alojada en la constante NI_NEEDED_VERSION.
+    (Ver Spanish/LanguageInitialise routine).
+  - Nuevo VerboIrregular 'mostrar las salidas'.
+  - Recoding de IdiomaImprimirComando y AveriguarPreposicion para correcta
+    respuesta (o pregunta) del parser en el caso de comandos tipeados
+    incompletos. Esto tambien da mayor flexibilidad en la construccion
+    de lineas de gramatica del tipo 'token1/token2/...'.
+  - Añadido soporte para Goin en I7 (comando 'entra' a secas).
+
+V0.8g - R 611.2
+  - Locale, hackeada para que ponga:
+    "Sobre la cama ves una sabanas de franela."
+    En vez de:
+    "On la cama ves una sabanas de franela.".
+  - Agregado soporte para directiva dialectos en I7.
+  - Arreglado problema con 'baja' en I7, por lo que I7 asignaba 'baja'
+    a la linea de gramatica de 'xverbo'.
+  - Agregados sinonimos ingleses para acciones de debug:
+    + showverb
+    + xpurloin
+    + XAbstract
+    + Showobj
+    + Gonear
+    + Goto.
+
+V0.8f - R 610.24
+  - Indefart hackeada, usada en (a) y (un). Para una correcta salida hispana:
+    se agrego el "a " en caso de nombre propio " a Mama".
+  - PrefaceByArticle actualizada a su version 6/11 y hackeada.
+  - Actualizada 'adjetivos', 'genero' a 'adjetives' y 'gender'.
+  - Actualizada definicion de bufferaux y parseraux usando nueva directiva
+    Array mi_array buffer N_size; (para Inform 6.30). Esto elimina el warning
+    sobre DictionaryLookUp.
+  - Se cambio verbo 'puntuaci' a 'puntuacion' porque sino no andaba.
+
+V0.8d --> 0.8e
+  - Retoques varios.
+
+V0.8c - R 609.23
+  - Se creo archivo Alias.h con todas las propiedades y atributos tal como
+    se usan en InformATE!
+  - Se llevo todo el hacking del parser a INFSPR.h, reemplazando las rutinas:
+    + Replace DictionaryLookup;
+    + Replace BestGuess;
+    + Replace Identical;
+    + Replace PrefaceByArticle;
+    + Replace TryGivenObject;
+    + Replace NounDomain;
+  - Ahora se llama internamente a INFSP (al final de SpanishG), por lo que
+    no es necesario hacer Include en el fuente del juego.
+  - Se cambio ElijeObjetos() por ChooseObjects() donde aparece.
+  - El parser conserva un cambio: en linklpa.h
+    Property article "un"; ![INFSP] el original decia "a", a lo mejor puede
+    cambiarse en otro sitio. No se sabe si esto puede dejarse como el original
+    o hay que cambiar si o si.
+  - Se agrego Rutina PasarAMinuscula() (y retoco EspanolAInformes) para
+    resolver problema de no reconocer infinitivos y pronominales en MAYUSCULAS
+    en Glulx.
+
+V0.8a --> 0.8b - R 609.14
+  - Publicacion inicial.
+  - Correccion de horrores pesadillezcos varios.
+
+- Fin del Documento -
