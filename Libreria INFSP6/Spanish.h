@@ -1217,7 +1217,7 @@ print "cientos"; rfalse;
     j=j;
     first_word=first_word;
     if (w == 'long' or 'short' or 'normal'
-                    or 'brief' or 'full' or 'verbose' or 'saltar')
+                    or 'brief' or 'full' or 'verbose')
         rtrue;
 
 
