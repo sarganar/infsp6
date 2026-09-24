@@ -1,90 +1,68 @@
 !% -D
+!% -Cu
 !% +language_name=Spanish
-! Las dos lineas de arriba deben estar siempre primero,
-! 	le dicen a Inform que compile en modo debug y en español
-! Para la pubilcacion, puede eliminarse la 1ra linea (modo debug)
+! Las lineas de arriba deben estar siempre primero:
+! 	-D compila en modo debug, -Cu lee el fuente como UTF-8 (convencion de
+! 	INFSP6 desde la 6.12, ver Libreria INFSP6), +language_name=Spanish
+! 	carga INFSP6.
+! Para la publicacion, puede eliminarse la linea -D (modo debug).
 
 ! =====================================================================
 ! Plantilla de juego minimo compilable en Inform6
-!        Author: Morgul
+!        Author: Morgul (adaptado para el pipeline de regtest de INFSP6)
 ! Serial Number: 806.1
-!          Note: For use with Inform 6. (Tested with Inform compiler
-!                version 6.31 and Inform library 6/11).
-!   Description: "Una plantilla básica de juego en I6."
+!          Note: For use with Inform 6 + INFSP6 (lib-INFSP6-6.12).
+!   Description: "Una plantilla basica de juego en I6."
 !================================================================
-
-! "Nombre_del_juego"
-!
-! REALIZADO POR: Nombre_del_autor
-!
-! Copyright (C) Año Nombre_del_autor
-
+! NOTA: el original de Morgul usaba las clases Habitacion/Objeto de
+! Facilitar.h (no incluido en este repo). Esta version usa Object simple
+! para no depender de ese archivo. Convertido de CP1252 a UTF-8 el
+! 2026-09-14 para poder compilar con -Cu junto a la libreria (tambien UTF-8).
 
 ! CONSTANTES
 
-Constant Story "~Nombre_del_juego~";
-Constant Headline "^Realizado por: Nombre_del_autor^^
-  (C) Año Nombre_del_autor^";
-Release 0;  ! Cuando se vaya a distribuir cambiar por 1
+Constant Story "Prueba Minima INFSP6";
+Constant Headline "^Smoke test del pipeline de regtest de INFSP6^";
+Release 1;
 
 ! Queremos usar el comando 'Salidas'
 Constant ADMITIR_COMANDO_SALIDAS;
 ! No queremos usar los comandos 'Lugares' y 'Objetos'
 Constant NO_PLACES;
-! No queremos usar puntuación
+! No queremos usar puntuacion
 Constant NO_SCORE;
 
 
-! VARIABLES GLOBALES
-
-
-! INCLUDES Y REPLACES
+! INCLUDES
 
 Include "Parser";
 Include "Verblib";
-
-
 Include "SpanishG";
-
-! Con la siguiente línea tenemos las clases Objeto y Habitacion
-Include "Facilitar";
 
 
 ! HABITACIONES
 
-! Ejemplo de habitación
-Habitacion LOCALIZACION_INICIAL
+Object LOCALIZACION_INICIAL "Cuarto de pruebas"
   with
-    description "Descripción_de_la_habitación";
+    description "Un cuarto vacio, usado para el smoke test del pipeline.",
+  has
+    light;
 
 
 ! OBJETOS
 
-! Ejemplo de objeto
-Objeto OBJETO_INICIAL "nombre_completo_del_objeto"
+Object OBJETO_INICIAL "piedra"
   with
-    name 'nombre_corto_del_objeto',
-    adjectives 'adjetivos_del_objeto',
-    description "Descripción_del_objeto";
+    name 'piedra',
+    description "Una piedra comun y silvestre.",
+  has
+  ;
 
 
 ! RUTINAS
 
-! Rutina principal y obligatoria de todo juego Inform
 [ Initialise;
-! Esto es para que el juego dé siempre la descripción de la habitación, aunque
-! ya la hayamos visitado
   lookmode = 2;
-
-! Localización donde comienza el jugador
   location = LOCALIZACION_INICIAL;
-
-! Objetos que lleva al principio el jugador
   move OBJETO_INICIAL to player;
 ];
-
-
-! LINEAS DE GRAMATICA
-
-
-! RUTINAS VERBOSUB

@@ -1,0 +1,23 @@
+The Inform Library version 6.12 introduced a "posture" property for the
+player character.  This was introduced by Roger Firth in the abortive
+overhaul of 2006.  I posted to intfiction.org asking about how this new
+property was intended to be used:
+https://intfiction.org/t/what-was-the-intended-use-of-the-posture-property-in-the-old-2006-inform-6-library/55784
+
+I was pointed to a Usenet post dating to 2003:
+https://groups.google.com/g/rec.arts.int-fiction/c/7S-ofCFuU2g/m/ufXRFqk0H10J
+
+It looks like this property could hold constants of at least STANDING,
+SITTING, or PRONE which would be used by the Library to create more
+realistica responses.
+
+Fredrik Ramsberg had this to say at intfiction.org:
+
+> Looks like it was meant to distinguish between different ways of being
+> in/on an object, so the game could easily adapt to whether the player is
+> sitting on a chair or standing on it etc. Maybe if the player is
+> standing on the chair, they can reach the hatch in the ceiling, or see
+> what's on top of the cupboard.
+
+
+I would like to fully implement this someday.

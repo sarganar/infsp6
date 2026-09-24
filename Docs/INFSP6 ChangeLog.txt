@@ -5,16 +5,45 @@
 
 Referencia: xxxxxx_git: Tomado de Repositorio Informate/.git (ej 030305_git)
 
+v6.12 - R 260915 - INFSP6 al dia con inform6lib (o sea inform-6.12)
+  - Puerto completo de la base de la libreria: de "Inform 6/11" (2004) a
+    "inform6lib 6.12.8" (gitlab.com/DavidGriffith/inform6lib), la
+    libreria estandar moderna de Inform 6, mantenida activamente.
+  - Codificacion de fuente: de CP1252/ISO-8859-1 a UTF-8 (compilar con
+    -Cu).
+  - Agregado el sistema narrative_voice/narrative_tense/narrative_number
+    (1ra/2da/3ra persona, singular/plural) con AsignarPersona(), Tense()
+    y ThatOrThose(), opt-in via ChangePlayer().
+  - LanguageLM() reescrita por completo: ~1400 mensajes de la libreria
+    ahora se conjugan segun voz/tiempo/numero, incluyendo conjugacion
+    actor-aware (un PNJ que ejecuta una accion ya no narra en la
+    persona del jugador).
+  - grammar.h reorganizado con meta-verbos, #Stubs y el guard
+    LIBRARY_STAGE (mismo patron de proteccion contra doble Include /
+    orden incorrecto que usa inform6lib).
+  - Las 7 rutinas hackeadas de INFSPR.h (DictionaryLookup, BestGuess,
+    Identical, PrefaceByArticle, TryGivenObject, Indefart, NounDomain)
+    puestas al dia contra el parser.h moderno; agregado AskPlayer
+    propio para no duplicar el listado de desambiguacion que ya
+    imprime ImprimirListaDudosos(). Corregido PARSE_BUFFER_LEN en
+    Glulx.
+  - Compass directions con short_name.
+  - Bugs reales de contenido encontrados y corregidos durante la
+    sincronizacion: numeracion corrida en Drop/Pull,Push,Turn, mensajes
+    mudos en NotifyOn/Transfer, concordancia de genero de tu_/_Tu_
+    (agregado TuFemenino_), y varios casos donde el genero se leia desde
+    player en vez desde actor (Sleep, Take, Tell, Wave).
+
 v0.9d - R 901.21
   - Soporte para impresion de particulas "De", "Del", "De la", "De los", "De las" con
 	la primera letra en mayuscula. Rutina (_Del).- Eliuk Blau
   - Agregado de algunas 'nuevas lineas' olvidadas.- Eliuk Blau
-  - Paquete: Nueva plantilla genérica de juego básico.- Eliuk Blau
+  - Paquete: Nueva plantilla genÃ©rica de juego bÃ¡sico.- Eliuk Blau
   
   
 v0.9c - R 901.05
   - Bug ImprimirListaDudosos (Spanish.h): Habia un problema en el listado
-	 de desambiguación. La salida era incorrecta. - Herring
+	 de desambiguaciÃ³n. La salida era incorrecta. - Herring
 
   - Corregido LanguageLM:Take:7 (Spanish.h): Se puso 'noun' en vez de x1. - Mel Hython
 
@@ -99,11 +128,11 @@ V0.8o - R 709.7
     oracion - gracias Eliuk Blau.
   - Corregidas algunas palabras mal traducidas/acentuadas - gracias Eliuk Blau.
 
-V0.8ñ - R 707.12
+V0.8Ã± - R 707.12
   - Corregido en el fichero de mensajes (Spanish) un mensaje de la accion
-    Lock (EcharCerrojo) al que le faltaba el punto final (se le ha añadido)
+    Lock (EcharCerrojo) al que le faltaba el punto final (se le ha aÃ±adido)
     *030305_git.
-  - Añadido verbo 'reproducir' en accion CommandsRead (LeerComandos)
+  - AÃ±adido verbo 'reproducir' en accion CommandsRead (LeerComandos)
     *030305_git.
   - I7: Hackeo de Banner (Verblibm.h). MINIMO. Se tradujo " by " por
     'escrita por' *Mel Hython.
@@ -141,7 +170,7 @@ V0.8j - R 612.26
 V0.8i - R 612.11
   - Agregado soporte en IdiomaPreguntarPrep para preguntar correctamente:
     ">entra a
-     ¿A donde quieres entrar?".
+     Â¿A donde quieres entrar?".
   - Arreglado problema con respuesta por defecto al intentar formas de
     comunicacion con PSIs (dile, habla, cuenta, etc.).
   - Re-mapeo de G_MASCULINO, G_FEMENINO,G_PLURAL y retoque de codigo para
@@ -160,7 +189,7 @@ V0.8h - R 611.15
     respuesta (o pregunta) del parser en el caso de comandos tipeados
     incompletos. Esto tambien da mayor flexibilidad en la construccion
     de lineas de gramatica del tipo 'token1/token2/...'.
-  - Añadido soporte para Goin en I7 (comando 'entra' a secas).
+  - AÃ±adido soporte para Goin en I7 (comando 'entra' a secas).
 
 V0.8g - R 611.2
   - Locale, hackeada para que ponga:

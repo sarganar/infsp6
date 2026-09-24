@@ -9,10 +9,23 @@ segun alguna necesidad especifica de algun autor de aventuras.
 Para ver mas parches puedes consultar la lista de la comunidad inglesa en:
 http://www.inform-fiction.org/patches/library.html
 
+NOTA (v6.12): Si estas usando INFSP6 sobre inform6lib 6.12.8 (la base
+actual del paquete), los dos parches de abajo YA NO HACEN FALTA -- estan
+resueltos nativamente en la libreria base moderna. Se dejan documentados
+por su valor historico y porque siguen aplicando a quien todavia use la
+vieja "Libreria Inform 6/11" (2004).
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 [1] - EL PARSER IMPRIME EN PARENTESIS SUS DEDUCCIONES...
+
+*** RESUELTO NATIVAMENTE en inform6lib 6.12.8 (v6.12 de INFSP6): el
+parser moderno ya trae el global "no_infer_message" (parser.h, cerca de
+la linea 524) pensado exactamente para esto -- ponelo en true antes de
+la impresion para suprimir el "(...)" de la deduccion, sin tocar ni
+hackear parser.h. El parche de abajo sigue aplicando solo si estas en
+la vieja "Libreria Inform 6/11" (2004). ***
 
 >examina kryss
 (Kryss)
@@ -48,6 +61,12 @@ del 'if', dejando sin efecto la impresion de deducciones.
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 [2] - EL OBJETO 'LIBRARYMESSAGES' NO SETEA 'LM_O' ANTE LA ACCION 'TAKE'...
+
+*** RESUELTO NATIVAMENTE en inform6lib 6.12.8 (v6.12 de INFSP6):
+TakeSub (verblib.h) ya llama L__M(##Take, 1, noun) pasando el objeto --
+exactamente la FORMA 2 de abajo, pero de fabrica. "lm_o" ya funciona sin
+hackear nada. El parche de abajo sigue aplicando solo si estas en la
+vieja "Libreria Inform 6/11" (2004). ***
 
 Object LibraryMessages
   with

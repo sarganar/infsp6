@@ -1,0 +1,62 @@
+Licencia de "Encierro"
+----------------------
+
+"Encierro" es software libre, con las siguientes condiciones:
+
+1. Puede usarse y distribuirse libremente y con cualquier propósito tanto de
+   forma binaria (compilada) como en fuentes y otro archivos de esta distribución
+   (archivo zmpp.JAR, archivos HTML, arhchivos CSS, archivos de texto TXT, archivos de imágenes
+   GIF, JPG, JPEG u otros), los cuales deben estar disponibles (en sitio público
+   o a petición) en cualquier distribución posterior, incluyendo siempre el archivo
+   LICENCIA.TXT (el documento electrónico que estás leyendo) con su contenido intacto.
+
+2.
+   2.1 Puede ser modificado por cualquiera, a excepción del significado de
+       los textos incluidos (la historia, el argumento, el mapa, las localidades,
+       los objetos, los puzzles y su resolución, las descripciones y texto de salida)
+       que debe quedar íntegro. (P. ej. no hay problema en realizar traducciones a
+       otros idiomas de la historia siempre que se mantenga el significado del original).
+       Por supuesto el código (estructura o estilo o lenguaje de programación) o
+       el formato pueden ser modificados.
+
+   2.2 Cualquier versión derivada del original (modificación u otra obra
+       distinta donde se haya incluido código de "Encierro") debe mantener y
+       acogerse a esta licencia (la licencia no puede ser cambiada en esas
+       versiones modificadas) y además debe indicar que procede de "Encierro".
+
+Si tienes cualquier duda de la aplicabilidad de la licencia, no dudes en preguntármela
+por correo electrónico a sarmasm@yahoo.com.
+
+Zmpp está distribuido bajo licencia GNU. Más información en http://sourceforge.net/projects/zmpp
+
+
+"Encierro" License
+------------------
+
+"Encierro" is free software, as long as the following conditions are meet:
+
+1. It may be freely used and distributed with any purpose either in binary (compiled)
+   form, and/or its source files and/or other files included in this distribution
+   (zmpp.JAR file, HTML files, CSS files, TXT text files, GIF, JPG, JPEG or other images file),
+   wich must be available (on a public site or by request) for any later distribution,
+   allways including this LICENCIA.TXT file (the electronic document you are now reading)
+   with all of its content intact.
+
+2.
+   2.1 It may be modified by anyone, excepting and excluding the meaning of de included text
+       (the story, argument, map, locations, objects, puzzles and their solving mechanism,
+       any descriptions and output text) wich must remain fully intact and complete
+       (E.g. its allowed to make translations to other spoken or written languages, as long
+       as the story et al remain fulliy intact and complete).
+       The programming code itself (including style, structure or programming/coding language)
+       or its format may be freely modified.
+
+   2.2 Any derivative version of the original (modification or a different work where 
+       "Encierro" code is included) must keep this license and comply with it (this license
+       can't be change on those modified versions) and it must also indicate that it comes from
+       "Encierro".
+
+When in doubt of any applicability of this license, send your questions by email to
+sarmasm@yahoo.com.
+
+Zmpp is distributed under GNU license. More information at http://sourceforge.net/projects/zmpp

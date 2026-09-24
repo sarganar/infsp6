@@ -1,0 +1,5 @@
+Para compilar, ejecutar mediante linea de comandos u otro desde [..]\Inform\bin\ :
+
+inform634.exe ..\games\Encierro\Encierro.inf ..\games\Encierro\Encierro.z5
+
+Se genera Encierro.z5 en la misma ruta de Encierro.inf

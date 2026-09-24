@@ -1,4 +1,5 @@
 !% -SD
+!% -Cu
 !% +language_name=Spanish
 !%
 
@@ -7,21 +8,21 @@
 !  Vampiro para INFSP - Adaptado por Sarganar mediante SINFORM (Script Inform)
 !
 !
-! Esta es la versión en Inform de "Memorias de reXXe", también
-! conocido como "Vampiro". Este código fuente forma parte del
-! "Proyecto Vampiro", del cual puedes encontrar más información en
+! Esta es la versiÃ³n en Inform de "Memorias de reXXe", tambiÃ©n
+! conocido como "Vampiro". Este cÃ³digo fuente forma parte del
+! "Proyecto Vampiro", del cual puedes encontrar mÃ¡s informaciÃ³n en
 ! http://www.caad.es/informate/vampiro/index.html
 !
 ! La idea del juego es de Jaume Alcazo Castellarnau
-! La implementación en InformatE! es de Jose Luis Díaz (Zak)
+! La implementaciÃ³n en InformatE! es de Jose Luis DÃ­az (Zak)
 !
 
-Release 4;  ! Cuarta versión de este juego
+Release 4;  ! Cuarta versiÃ³n de este juego
 
 Constant Story "-Memorias de reXXe-";
 Constant Headline  "^(c) 1998 Jaume Alcazo Castellarnau.^^";
     
-Constant MAX_CARRIED=5;           ! Máximo número de objetos que puede
+Constant MAX_CARRIED=5;           ! MÃ¡ximo nÃºmero de objetos que puede
                                  ! transportar el jugador
 
 ! Queremos que el juego admita el comando "X" (salidas) y los
@@ -32,16 +33,16 @@ Constant ADMITIR_COMANDO_SALIDAS;
 
 Include "Parser";
 
-! Redefiniremos algunos de los mensajes estándares de la librería. En
+! Redefiniremos algunos de los mensajes estÃ¡ndares de la librerÃ­a. En
 ! concreto queremos
 !  - que el prompt sea >> en vez de >
 !  - que si el jugador no escribe nada, el juego no responda nada (en vez
-!    de responder "¿Perdón?"
-!  - que el comando Puntuacion no de puntuación.
+!    de responder "Â¿PerdÃ³n?"
+!  - que el comando Puntuacion no de puntuaciÃ³n.
 !
 ! Para ello hay que crear el objeto MensajesLibreria. Si quitaramos
-! este objeto de aqui, se usarían en su lugar los mensajes estándares
-! de la librería.
+! este objeto de aqui, se usarÃ­an en su lugar los mensajes estÃ¡ndares
+! de la librerÃ­a.
 !
 Object     LibraryMessages
  with   before [;
@@ -53,27 +54,27 @@ Object     LibraryMessages
      Score:
             if (deadflag) {print ""; rtrue;
         }
-            print "No hay puntuación. El único objetivo es acabar con el
+            print "No hay puntuaciÃ³n. El Ãºnico objetivo es acabar con el
         vampiro";
         rtrue;
         ];
 
 
-! Inclusión de todas las funciones y acciones
+! InclusiÃ³n de todas las funciones y acciones
 Include "Verblib";
-! Inclusión de la definición de verbos
+! InclusiÃ³n de la definiciÃ³n de verbos
 Include "SpanishG";
 !----------------------------------------------------------------
 ! FIN DE LA PARTE ESTANDAR. Empieza la parte propia del juego
 !
 
-! En esta variable almacenamos cuántos elementos "básicos" lleva el
-! jugador. Estos elementos básicos son el crucifijo, la estaca, el
-! martillo y la ristra de ajos. Si este número no es 4 no se permite
+! En esta variable almacenamos cuÃ¡ntos elementos "bÃ¡sicos" lleva el
+! jugador. Estos elementos bÃ¡sicos son el crucifijo, la estaca, el
+! martillo y la ristra de ajos. Si este nÃºmero no es 4 no se permite
 ! al jugador que abra el ataud.
 !
-! Este número tiene que cambiar cada vez que el jugador tome o deje un
-! o de los elementos básicos.
+! Este nÃºmero tiene que cambiar cada vez que el jugador tome o deje un
+! o de los elementos bÃ¡sicos.
 !
 Global Elementos_poseidos =0;
 
@@ -82,8 +83,8 @@ Global Elementos_poseidos =0;
 !-------------------------------------------------------------------
 ! Punto de Inicio
 !-------------------------------------------------------------------
-! Aquí empieza el juego. Este es el punto para imprimir el mensaje
-! inicial de bienvenida y puesta en situación
+! AquÃ­ empieza el juego. Este es el punto para imprimir el mensaje
+! inicial de bienvenida y puesta en situaciÃ³n
 [ Initialise;
     
     print "^^";
@@ -91,17 +92,17 @@ Global Elementos_poseidos =0;
     print (string) Story;
     style roman;
     print "^(c) 1998 Jaume Alcazo Castellarnau";
-    print "^^Esta es la versión programada en Inform del juego
-    ~Vampiro~ original de Aventuras ALCAZO. Para más información
+    print "^^Esta es la versiÃ³n programada en Inform del juego
+    ~Vampiro~ original de Aventuras ALCAZO. Para mÃ¡s informaciÃ³n
     teclea HISTORIA en el juego.^^Muchas gracias por jugar^^";
-    print "^^Despiertas aturdido. Después de unos segundos te incorporas
-    en el frío suelo de piedra y ves que estás en un
-    castillo. ¡Ahora recuerdas! Eres reXXe y tu misión es la de
+    print "^^Despiertas aturdido. DespuÃ©s de unos segundos te incorporas
+    en el frÃ­o suelo de piedra y ves que estÃ¡s en un
+    castillo. Â¡Ahora recuerdas! Eres reXXe y tu misiÃ³n es la de
     matar al vampiro. TIENES que matar al vampiro que vive en la
     parte superior del castillo...^^";
 
     ! Empieza el juego!
-    location=Hall;     ! Habitación de partida
+    location=Hall;     ! HabitaciÃ³n de partida
     move traje to player; ! Posesiones iniciales
     lookmode=2;           ! Modo "verbose", descripciones siempre largas
 ];
@@ -109,12 +110,12 @@ Global Elementos_poseidos =0;
 
 !------------------------EL MUNDO DEL JUEGO-------------------
 !
-! Definiremos una clase especial de habitaciones, y después haremos
+! Definiremos una clase especial de habitaciones, y despuÃ©s haremos
 ! que todas las habitaciones del juego pertenezcan a esta clase. En
 ! particular, se trata de hacer que todas ellas tengan luz por defecto
-! y de que escriban la lista de salidas tras la descripción.
+! y de que escriban la lista de salidas tras la descripciÃ³n.
 !
-! Además, en todas ellas puede verse el suelo y el techo al mirar
+! AdemÃ¡s, en todas ellas puede verse el suelo y el techo al mirar
 ! hacia arriba o abajo.
 
 Class Habitacion
@@ -126,9 +127,9 @@ Class Habitacion
     before[;
      Examine:
         if (noun==u_obj) !arriba
-             "El techo está muy alto y es de piedras.";
+             "El techo estÃ¡ muy alto y es de piedras.";
         else if (noun==d_obj) !abajo
-        "El suelo es de piedras y está muy frío.";
+        "El suelo es de piedras y estÃ¡ muy frÃ­o.";
     ],
  has     light;
 
@@ -140,8 +141,8 @@ Class Habitacion
 Object     Limbo;
 
 ! Definiremos una nueva clase llamada Elemento. 
-! Los objetos que servirán para matar al vampiro serán de la clase
-! "Elemento" para tomar nota de cuándo se cogen y cuándo se dejan.
+! Los objetos que servirÃ¡n para matar al vampiro serÃ¡n de la clase
+! "Elemento" para tomar nota de cuÃ¡ndo se cogen y cuÃ¡ndo se dejan.
 !
 Class     Elemento
  with     after[;
@@ -152,21 +153,21 @@ Class     Elemento
 !*******************
 ! 1) El Hall
 !*******************
-Habitacion Hall "Vestíbulo"
+Habitacion Hall "VestÃ­bulo"
  with     description
-        "Estás en el vestíbulo del castillo. El ambiente es muy
-        húmedo y frío. Estás en un pasillo que se extiende hacia
+        "EstÃ¡s en el vestÃ­bulo del castillo. El ambiente es muy
+        hÃºmedo y frÃ­o. EstÃ¡s en un pasillo que se extiende hacia
         el norte. Al sur queda la puerta de entrada al castillo.",
     n_to Pasillo,
     ;
 
-! Las cosas que hay en el vestíbulo
+! Las cosas que hay en el vestÃ­bulo
 Object -> LaPuerta "puerta"
  with     name 'puerta' 'salida' 'entrada',
-    description "Es muy grande y está cerrada. No la vas a poder
+    description "Es muy grande y estÃ¡ cerrada. No la vas a poder
         abrir",
     before [;
-     Open: "¡Te he dicho que no la puedes abrir, ¡Melón!";
+     Open: "Â¡Te he dicho que no la puedes abrir, Â¡MelÃ³n!";
     ],
  has     female openable ~open concealed;
 
@@ -183,7 +184,7 @@ Object -> PasilloDesdeVestibulo "pasillo"
 Habitacion Pasillo "Pasillo"
  with    description
         "Te encuentras en medio del pasillo principal de este
-        piso. Al oeste está la cocina y al este la biblioteca. El
+        piso. Al oeste estÃ¡ la cocina y al este la biblioteca. El
         pasillo sigue hacia el norte.",
     s_to Hall,
     n_to Escalera,
@@ -196,7 +197,7 @@ Habitacion Pasillo "Pasillo"
 !*****************
 Habitacion Biblioteca "Biblioteca"
  with     description
-        "Te hallas en la biblioteca del castillo. Obviamente está
+        "Te hallas en la biblioteca del castillo. Obviamente estÃ¡
         llena de libros interesantes, pero desgraciadamente no
         tienes tiempo para leerlos.",
     w_to Pasillo;
@@ -209,14 +210,14 @@ Elemento -> crucifijo "crucifijo plateado"
     name_f 'cruz',
      adjectives 'plateado' 'plateada' 'plata',
     description
-        "Es un pequeño crucifijo plateado. Es uno de los cuatro
-        elementos que nos servirán para derrotar al vampiro.",
+        "Es un pequeÃ±o crucifijo plateado. Es uno de los cuatro
+        elementos que nos servirÃ¡n para derrotar al vampiro.",
     gender G_MASCULINO,
     ! El genero hay que ponerlo si el objeto tiene propiedades
-    ! nombre_m, nombre_f, nombre_mp o nombre_fp. El género se
+    ! nombre_m, nombre_f, nombre_mp o nombre_fp. El gÃ©nero se
     ! refiere siempre a la palabra que aparece entre comillas en
     ! la cabecera del objeto, en este caso "crucifijo plateado",
-    ! que es masculino. Cuando el género se da de este modo, ya no
+    ! que es masculino. Cuando el gÃ©nero se da de este modo, ya no
     ! es necesario especificar en la lista de atributos "femenino"
     ! ni "nombreplural"
 ;
@@ -232,7 +233,7 @@ Object -> palanca "palanca"
 Object -> libros "libros"
  with     name_m 'libro',
      name_mp 'libros',
-    gender G_MASCULINO + G_PLURAL, ! el género y número de "libros"
+    gender G_MASCULINO + G_PLURAL, ! el gÃ©nero y nÃºmero de "libros"
     description
             "Montones de libros, pero no tengo tiempo para leer
         ahora.",
@@ -248,9 +249,9 @@ Object -> libros "libros"
 !***********************
 Habitacion Cocina "Cocina"
  with     description
-        "Estás en la cocina del castillo. Esto está lleno de
+        "EstÃ¡s en la cocina del castillo. Esto estÃ¡ lleno de
         cacerolas y de cacharros para cocinar. Hay un horno, un
-        fregadero y un armario pequeño.",
+        fregadero y un armario pequeÃ±o.",
     e_to Pasillo;
 
 Object -> Horno "horno"
@@ -263,7 +264,7 @@ Object -> cacharros "cacharros"
      name_f 'cacerola',
      name_mp 'cacharros',
      name_fp 'cacerolas',
-    gender G_MASCULINO + G_PLURAL, ! Género y número de "cacharros"
+    gender G_MASCULINO + G_PLURAL, ! GÃ©nero y nÃºmero de "cacharros"
     description "Simples cacerolas y cacharros de cocina.",
  has     scenery;
 
@@ -275,12 +276,12 @@ Object -> cuchillo "cuchillo"
             "Un simple cuchillo de cocina. Pincha.";
 
 ! Vamos a dejar que el fregadero sea un recipiente. De este modo el
-! jugador podrá meter y sacar cosas en él (aunque en realidad esto no
+! jugador podrÃ¡ meter y sacar cosas en Ã©l (aunque en realidad esto no
 ! sirve para nada en el juego)
 !
-! Como descripción del fregadero queremos que muestre sus
-! contenidos. La forma más sencilla es generar la acción BuscarEn, ya
-! que esta acción en el caso de recipientes listará lo que contienen.
+! Como descripciÃ³n del fregadero queremos que muestre sus
+! contenidos. La forma mÃ¡s sencilla es generar la acciÃ³n BuscarEn, ya
+! que esta acciÃ³n en el caso de recipientes listarÃ¡ lo que contienen.
 Object     -> fregadero "fregadero"
  with     name 'fregadero',
     description [;
@@ -289,25 +290,25 @@ Object     -> fregadero "fregadero"
     ],
  has     scenery container open;
 
-! El armario también es un recipiente, pero estará cerrado con
-! llave. En la propiedad con_llave se especifica qué objeto sirve para
-! abrirlo. Además queremos que al examinar el armario por primera vez
-! después de abrirlo caiga una ristra de ajos de dentro. Esto exigirá
-! que la descripción sea una rutina.
+! El armario tambiÃ©n es un recipiente, pero estarÃ¡ cerrado con
+! llave. En la propiedad con_llave se especifica quÃ© objeto sirve para
+! abrirlo. AdemÃ¡s queremos que al examinar el armario por primera vez
+! despuÃ©s de abrirlo caiga una ristra de ajos de dentro. Esto exigirÃ¡
+! que la descripciÃ³n sea una rutina.
 !
 ! Usaremos el atributo general como bandera que significa "los ajos ya
 ! han sido encontrados"
 !
-! Además, haremos que la acción QuitarCerrojo automáticamente abra el
-! armario. De lo contrario el jugador tendría que poner ABRIR ARMARIO
+! AdemÃ¡s, haremos que la acciÃ³n QuitarCerrojo automÃ¡ticamente abra el
+! armario. De lo contrario el jugador tendrÃ­a que poner ABRIR ARMARIO
 ! CON LLAVECITA para quitar el cerrojo y seguidamente ABRIR ARMARIO
-! para abrirlo. Esta repetición es antinatural en español
+! para abrirlo. Esta repeticiÃ³n es antinatural en espaÃ±ol
 !
 Object -> armario "armario"
  with     name 'armario',
     with_key llavecita,
     description [;
-        if (self has locked) "Está cerrado con llave.";
+        if (self has locked) "EstÃ¡ cerrado con llave.";
         else if (self hasnt general) ! Si no hemos encontrado los
                                  ! ajos
         { 
@@ -316,24 +317,24 @@ Object -> armario "armario"
         "Al examinarlo se te cae al suelo una ristra de ajos
         que estaba en su interior.";
         }
-        else ! Si los ajos ya habían sido encontrados, nos
+        else ! Si los ajos ya habÃ­an sido encontrados, nos
         ! limitaremos a listar los contenidos del armario (que
-        ! estará vacío a menos que el jugador meta algo)
+        ! estarÃ¡ vacÃ­o a menos que el jugador meta algo)
         <<Search self>>;
     ],
     after [;
-     Unlock: <<Open self>>; ! Una vez que la acción
-        ! QuitarCerrojo haya tenido éxito, abrimos el armario
+     Unlock: <<Open self>>; ! Una vez que la acciÃ³n
+        ! QuitarCerrojo haya tenido Ã©xito, abrimos el armario
     ],
     
  has    container        ! Se pueden meter cosas
         lockable       ! Se puede echar/quitar cerrojo (usando llave)
-        locked ! Inicialmente está cerrado con llave
+        locked ! Inicialmente estÃ¡ cerrado con llave
         openable       ! Se puede abrir/cerrar (una vez quitado el cerrojo)
-        ~open      ! Inicialmente está cerrado
+        ~open      ! Inicialmente estÃ¡ cerrado
         scenery;    ! No se puede coger ni mover, ni es
                           ! mencionado en la lista de objetos de la
-                          ! habitación
+                          ! habitaciÃ³n
 
 
 !***************************
@@ -341,8 +342,8 @@ Object -> armario "armario"
 !**************************
 Habitacion Escalera "Escaleras"
  with     description
-        "Te hallas en el final del pasillo. Delante de tí ves unas
-        escaleras que suben y otras que bajan. Al oeste está el
+        "Te hallas en el final del pasillo. Delante de tÃ­ ves unas
+        escaleras que suben y otras que bajan. Al oeste estÃ¡ el
         dormitorio y al este la sala de estar.",
     s_to Pasillo,
     e_to Sala,
@@ -355,7 +356,7 @@ Object -> escalones_escalera "escalera"
      name_mp 'escalones',
     name_f 'escalera',
      name_fp 'escaleras',
-    gender G_FEMENINO,  ! Género y número de "escalera"
+    gender G_FEMENINO,  ! GÃ©nero y nÃºmero de "escalera"
     description
         "Unas polvorientas escaleras. Unas suben y otras bajan",
  has     scenery;
@@ -366,8 +367,8 @@ Object -> escalones_escalera "escalera"
 !************************
 Habitacion Dormitorio "Dormitorio"
  with     description
-        "Estás en un dormitorio no muy grande ni tampoco muy
-        pequeño. Es bastante austero. Sólo hay una cama y un
+        "EstÃ¡s en un dormitorio no muy grande ni tampoco muy
+        pequeÃ±o. Es bastante austero. SÃ³lo hay una cama y un
         armario.",
     e_to Escalera;
 
@@ -381,12 +382,12 @@ Object     -> armario_dormitorio "armario"
 ! echarse en ella (pues no tiene el atributo entrable)
 Object -> cama "cama"
  with     name 'cama',
-    description "Está cubierta de sábanas.",
+    description "EstÃ¡ cubierta de sÃ¡banas.",
  has     female scenery;
 
-! Las sábanas harán aparecer la llavecita si se examinan. Usaremos el
+! Las sÃ¡banas harÃ¡n aparecer la llavecita si se examinan. Usaremos el
 ! atributo "general" como bandera de que la llavecita ya ha sido
-! encontrada. También podríamos haber comprobado si la llavecita está
+! encontrada. TambiÃ©n podrÃ­amos haber comprobado si la llavecita estÃ¡
 ! en el limbo.
 Object -> sabanas "sabanas"
  with     name_f 'sabana',
@@ -397,9 +398,9 @@ Object -> sabanas "sabanas"
         {
         give self general;
             move llavecita to location;
-            "Entre ellas encuentras una pequeña llavecita.";
+            "Entre ellas encuentras una pequeÃ±a llavecita.";
         }
-        "Sábanas corrientes y molientes.";
+        "SÃ¡banas corrientes y molientes.";
     ],
  has     scenery;
         
@@ -410,8 +411,8 @@ Object -> sabanas "sabanas"
 !***********************
 Habitacion Sala "Sala de estar"
 with description
-        "Es la sala más acogedora de todo el castillo. En la
-        chimenea los últimos restos de algún fuego chisporrotean
+        "Es la sala mÃ¡s acogedora de todo el castillo. En la
+        chimenea los Ãºltimos restos de algÃºn fuego chisporrotean
         alegremente. Hay una mesa grande con una silla al lado. De
         la pared cuelgan bastantes trofeos de caza y adornos
         varios.",
@@ -421,13 +422,13 @@ with description
 ! hecho no se puede hacer nada con ellos por ser de tipo "escenario"
 ! salvo examinarlos.
 !
-! Se podría haber usado la propiedad "irrelevante" de la Sala para
+! Se podrÃ­a haber usado la propiedad "irrelevante" de la Sala para
 ! contener las palabras 'trofeo' 'trofeos' 'adorno' o 'adornos' y de
-! ese modo cuando el jugador se intentara referir a ellos se le daría
+! ese modo cuando el jugador se intentara referir a ellos se le darÃ­a
 ! el mensaje "Eso no es importante para el juego"
 !
-! La única razón para tenerlos como objetos separados es poder darles
-! una descripción y así respetar el diseño del juego de Jaume Alcazo
+! La Ãºnica razÃ³n para tenerlos como objetos separados es poder darles
+! una descripciÃ³n y asÃ­ respetar el diseÃ±o del juego de Jaume Alcazo
 !
 Object -> trofeos "trofeos"
  with     name_m 'trofeo',
@@ -443,15 +444,15 @@ Object -> adornos "adornos"
     description "Adornan.",
  has     scenery;
 
-! La chimenea capturará la acción de BuscarEn para convertirla en la
-! acción Examinar Restos. Además, como una pequeña diversión,
-! capturamos la acción Meterse por si el jugador intenta entrar en la
-! chimenea. Observar que realmente no hacía falta capturar esta acción
-! pues al no ser el objeto "entrable" la librería impediría de todas
-! formas que el jugador se metiera. Lo que ocurriría es que el mensaje
-! de la librería sería "No es algo donde puedas
+! La chimenea capturarÃ¡ la acciÃ³n de BuscarEn para convertirla en la
+! acciÃ³n Examinar Restos. AdemÃ¡s, como una pequeÃ±a diversiÃ³n,
+! capturamos la acciÃ³n Meterse por si el jugador intenta entrar en la
+! chimenea. Observar que realmente no hacÃ­a falta capturar esta acciÃ³n
+! pues al no ser el objeto "entrable" la librerÃ­a impedirÃ­a de todas
+! formas que el jugador se metiera. Lo que ocurrirÃ­a es que el mensaje
+! de la librerÃ­a serÃ­a "No es algo donde puedas
 ! meterte". Evidentemente este no parece un buen mensaje para una
-! chimenea y por esa razón capturamos esta acción, para ofrecer un
+! chimenea y por esa razÃ³n capturamos esta acciÃ³n, para ofrecer un
 ! mensaje mejor.
 !
 Object     -> chimenea "chimenea"
@@ -460,7 +461,7 @@ Object     -> chimenea "chimenea"
     description
         "Es una chimenea hecha de ladrillos y muy elegante.",
     before [;
-     GoIn: "No he venido aquí a hacer de Santa Claus.";
+     GoIn: "No he venido aquÃ­ a hacer de Santa Claus.";
      Search: <<Examine restos>>;
     ],
  has     female scenery;
@@ -481,12 +482,12 @@ Object     -> restos "restos de un fuego"
         "Entre los restos del fuego encuentras un trozo de
         madera.";
         }
-        "Son los restos de algún fuego reciente.";
+        "Son los restos de algÃºn fuego reciente.";
     ],
  has     pluralname scenery;
 
 
-! La mesa es otro objeto inútil.
+! La mesa es otro objeto inÃºtil.
 Object -> mesa "mesa"
  with     name 'mesa',
      adjectives 'caoba' 'grande' 'gran',
@@ -495,19 +496,19 @@ Object -> mesa "mesa"
  has     female scenery;
 
 
-! La silla originalmente era otro objeto inútil, pero aqui le hemos
-! añadido la posibilidad de sentarse en ella. Para ello basta capturar
-! la acción Meterse. No es necesario hacerla "entrable" ya que en
-! realidad el jugador no va a entrar nunca en ella (sólo el mensaje
-! impreso dice que ha entrado, pero lo cierto es que la librería nunca
+! La silla originalmente era otro objeto inÃºtil, pero aqui le hemos
+! aÃ±adido la posibilidad de sentarse en ella. Para ello basta capturar
+! la acciÃ³n Meterse. No es necesario hacerla "entrable" ya que en
+! realidad el jugador no va a entrar nunca en ella (sÃ³lo el mensaje
+! impreso dice que ha entrado, pero lo cierto es que la librerÃ­a nunca
 ! ha movido al jugador al interior de la silla).
 Object -> silla "silla"
  with     name 'silla',
      adjectives 'comoda',
     description
-        "Una cómoda silla.",
+        "Una cÃ³moda silla.",
     before [;
-     GoIn: "Te sientas en la silla, y después del breve descanso
+     GoIn: "Te sientas en la silla, y despuÃ©s del breve descanso
         te levantas otra vez.";
     ],
  has     female scenery;
@@ -516,11 +517,11 @@ Object -> silla "silla"
 !***********************
 ! 8) EL SOTANO
 !***********************
-Habitacion Sotano "Sótano"
+Habitacion Sotano "SÃ³tano"
 with description
-        "En este pequeño sótano hace mucho calor, sientes una
-        sensación de recogimiento. Está todo muy sucio. Hay un
-        barril aquí, también hay unas escaleras que suben.",
+        "En este pequeÃ±o sÃ³tano hace mucho calor, sientes una
+        sensaciÃ³n de recogimiento. EstÃ¡ todo muy sucio. Hay un
+        barril aquÃ­, tambiÃ©n hay unas escaleras que suben.",
     u_to Escalera;
 
 Object -> escalones_Sotano "escalera"
@@ -530,9 +531,9 @@ Object -> escalones_Sotano "escalera"
 
 ! El barril es un objeto que no puede abrirse, a menos que se use la
 ! palanca. Por tanto debemos capturar las acciones Abrir (que aparece
-! cuando el jugador pone "ABRE BARRIL" y la acción QuitarCerrojo (que
+! cuando el jugador pone "ABRE BARRIL" y la acciÃ³n QuitarCerrojo (que
 ! se genera cuando el jugador pone "ABRE BARRIL CON LOQUESEA". En este
-! segundo caso abrá que ver si LOQUESEA es la palanca.
+! segundo caso abrÃ¡ que ver si LOQUESEA es la palanca.
 !
 Object -> barril "barril"
  with     name 'barril',
@@ -541,15 +542,15 @@ Object -> barril "barril"
         if (second~=palanca) "Intentas abrirlo, pero no tienes
         la suficiente fuerza.";
         give self open;
-        "-¡Clack!- Haciendo palanca logras abrir el barril.";
+        "-Â¡Clack!- Haciendo palanca logras abrir el barril.";
     ],
  has openable container ~open concealed;    
 
-! Dentro del barril está el martillo, por eso la doble flecha
+! Dentro del barril estÃ¡ el martillo, por eso la doble flecha
 Elemento -> -> martillo "martillo"
  with     name 'martillo',
     description "Un martillo grande. Es uno de los elementos que
-        me permitirán acabar con el vampiro.",
+        me permitirÃ¡n acabar con el vampiro.",
     ;
 
 
@@ -559,26 +560,26 @@ Elemento -> -> martillo "martillo"
 !**********************
 Habitacion Rellano "Escaleras"
  with     description
-        "Estás en el piso superior del castillo. Aquí hace aún más
-        frío que abajo. Detrás de tí están las escaleras que bajan
-        y hacia el oeste está la habitación del vampiro.",
+        "EstÃ¡s en el piso superior del castillo. AquÃ­ hace aÃºn mÃ¡s
+        frÃ­o que abajo. DetrÃ¡s de tÃ­ estÃ¡n las escaleras que bajan
+        y hacia el oeste estÃ¡ la habitaciÃ³n del vampiro.",
     d_to Escalera,
     w_to Vampiro;
 
-! En este objeto hacemos una pequeña demostración de la habilidad de
-! la librería para manejar concordancias de género y número. Queremos
-! que la descripción de EXAMINA ESCALERA diga "Conduce al piso
+! En este objeto hacemos una pequeÃ±a demostraciÃ³n de la habilidad de
+! la librerÃ­a para manejar concordancias de gÃ©nero y nÃºmero. Queremos
+! que la descripciÃ³n de EXAMINA ESCALERA diga "Conduce al piso
 ! inferior", pero resulta que si el jugador pone EXAMINA ESCALONES
-! debería decir "Conducen al piso inferior" (en plural)
+! deberÃ­a decir "Conducen al piso inferior" (en plural)
 !
-! La solución: hacer que la descripción sea una rutina, en vez de una
-! cadena de texto, que se adapte al número del objeto. Para ello
-! usamos la especificación de formato (n) que imprime una "n" si el
+! La soluciÃ³n: hacer que la descripciÃ³n sea una rutina, en vez de una
+! cadena de texto, que se adapte al nÃºmero del objeto. Para ello
+! usamos la especificaciÃ³n de formato (n) que imprime una "n" si el
 ! objeto es plural (tiene el atributo pluralname) o no imprime nada si
 ! es singular (no lo tiene).
 !
-! El atributo pluralname es cambiado automáticamente por la librería
-! según la palabra que el jugador haya usado para referirse a este
+! El atributo pluralname es cambiado automÃ¡ticamente por la librerÃ­a
+! segÃºn la palabra que el jugador haya usado para referirse a este
 ! objeto.
 !
 Object -> escalones_arriba "escalera"
@@ -597,18 +598,18 @@ Object -> escalones_arriba "escalera"
 !*************************
 Habitacion Vampiro "El Final"
  with     description
-        "Estás en una habitación desnuda. Unicamente hay un altar
+        "EstÃ¡s en una habitaciÃ³n desnuda. Unicamente hay un altar
         en el centro. Encima del altar puedes ver un ataud.",
     e_to Rellano;
 
 ! Hay un altar. Tal vez el jugador intente subirse o sentarse en
-! él. El mensaje estándar diciendo que no parece algo a donde pueda
-! subirse parece inapropiado, por tanto capturamos la acción meterse
+! Ã©l. El mensaje estÃ¡ndar diciendo que no parece algo a donde pueda
+! subirse parece inapropiado, por tanto capturamos la acciÃ³n meterse
 ! para dar un mensaje mejor.
 Object     -> altar "altar"
  with     name 'altar',
     description
-        "Es un altar de dura piedra. Encima de éste está el
+        "Es un altar de dura piedra. Encima de Ã©ste estÃ¡ el
         ataud.",
     before[;
      GoIn: "No es necesario.";
@@ -616,7 +617,7 @@ Object     -> altar "altar"
  has     scenery static;
 
 ! El ataud es el final del juego. Si el jugador intenta abrirlo
-! debemos comprobar que lleva los cuatro elementos básicos y en ese
+! debemos comprobar que lleva los cuatro elementos bÃ¡sicos y en ese
 ! caso ha ganado. Si no los lleva no le dejamos abrir el ataud.
 Object -> ataud "ataud"
  with     name 'ataud' 'feretro',
@@ -632,9 +633,9 @@ Object -> ataud "ataud"
         print "Abres el ataud. Dentro contemplas la horrible cara del
         vampiro. Protegido por los ajos y el crucifijo empiezas tu
         horrible tarea. Le clavas la estaca en el pecho y de un
-        terrible golpe de martillo la hundes en lo más profundo de
-        su ser. Con un grito de agonía se deshace en polvo y tú
-        acabas tu misión aquí.^^Por ahora...^^";
+        terrible golpe de martillo la hundes en lo mÃ¡s profundo de
+        su ser. Con un grito de agonÃ­a se deshace en polvo y tÃº
+        acabas tu misiÃ³n aquÃ­.^^Por ahora...^^";
         Print__Spaces(10);
         "Finis.";
     ],
@@ -644,12 +645,12 @@ Object -> ataud "ataud"
 !----------------------------------------------------------------
 ! OBJETOS QUE INICIALMENTE NO ESTAN EN EL JUEGO
 !
-!  Aparecen al examinar otros objetos. Inicialmente están en el Limbo
+!  Aparecen al examinar otros objetos. Inicialmente estÃ¡n en el Limbo
 
-! La estaca inicialmente no está en el juego. Aparece sólo al tratar
+! La estaca inicialmente no estÃ¡ en el juego. Aparece sÃ³lo al tratar
 ! de afilar el madero usando el cuchillo
 !
-! Capturaremos la acción Afilar para que no salga el mensaje estándar
+! Capturaremos la acciÃ³n Afilar para que no salga el mensaje estÃ¡ndar
 ! de que no puede ser afilada.
 !
 Elemento estaca "estaca afilada" Limbo
@@ -660,16 +661,16 @@ Elemento estaca "estaca afilada" Limbo
     description "Un cacho de madera rectangular y alargado, uno 
         de sus extremos esta afilado cuidadosamente.",
     before [;
-     Afilar: "Ya está bastante afilada.";
+     Afilar: "Ya estÃ¡ bastante afilada.";
     ],
 ;
 
-! El trozo de madera inicialmente no está en el juego. Aparece sólo al
+! El trozo de madera inicialmente no estÃ¡ en el juego. Aparece sÃ³lo al
 ! examinar los restos.
 !
 ! Este objeto es afilable, lo que quiere decir que capturaremos la
-! acción Afilar, comprobaremos que intenta afilarse con un cuchillo y
-! si es así haremos desaparecer al madero apareciendo la estaca en su
+! acciÃ³n Afilar, comprobaremos que intenta afilarse con un cuchillo y
+! si es asÃ­ haremos desaparecer al madero apareciendo la estaca en su
 ! lugar.
 Object madero "trozo de madera" Limbo
  with     name_m 'trozo' 'cacho' 'madero',
@@ -682,20 +683,20 @@ Object madero "trozo de madera" Limbo
          move madero to Limbo;
          move estaca to player;
          ! Hay que contar que el jugador ha logrado uno de los
-         ! elementos básicos
+         ! elementos bÃ¡sicos
          Elementos_poseidos++;
-         "Afilas la madera con el cuchillo ¡y obtienes una
+         "Afilas la madera con el cuchillo Â¡y obtienes una
          estaca!";
      }
         "No puedes afilar el madero con eso.";
     ],
     ;
 
-! Los ajos no están en ningún lugar, hasta que aparecen
-! Así que inicialmente los pongo en el limbo
+! Los ajos no estÃ¡n en ningÃºn lugar, hasta que aparecen
+! AsÃ­ que inicialmente los pongo en el limbo
 !
 ! Interceptaremos las acciones de oler y comer los ajos, para mostrar
-! un mensaje simpático.
+! un mensaje simpÃ¡tico.
 Elemento ajos "ristra de ajos" Limbo
  with     name_f 'ristra',
      name_mp 'ajos',
@@ -703,20 +704,20 @@ Elemento ajos "ristra de ajos" Limbo
     gender G_FEMENINO,
     description "Es una ristra entera de ajos que expelen un olor
         un tanto asqueroso. Es uno de los cuatro elementos que me
-        servirán para derrotar al vampiro.",
+        servirÃ¡n para derrotar al vampiro.",
     before[;
      Smell:"Puagh.";
-     Eat:"Ni hablar, me daría halitosis.";
+     Eat:"Ni hablar, me darÃ­a halitosis.";
     ],
 ;
 
 ! La llavecita que abre el armario
 !
-Object     llavecita "pequeña llavecita" Limbo
+Object     llavecita "pequeÃ±a llavecita" Limbo
  with     name 'llave' 'llavecita',
      adjectives 'pequena',
-    description "Esta pequeña llavecita tiene la pinta de abrir un
-        armario o algo así.",
+    description "Esta pequeÃ±a llavecita tiene la pinta de abrir un
+        armario o algo asÃ­.",
  has     female;
 
 !----------------------------------------
@@ -751,13 +752,13 @@ Object paredes "paredes"
 !***************************************************************
 ! GRAMATICA
 !****************************************************************
-! Definición de verbos adicionales para este juego. Nuevos verbos:
+! DefiniciÃ³n de verbos adicionales para este juego. Nuevos verbos:
 ! AFILAR HISTORIA AYUDA
 
 !----------------------------------------------------------------
 ! LAS ACCIONES por defecto para esos verbos
 !
-! Qué hacer por defecto cuando el jugador intenta afilar cualquier
+! QuÃ© hacer por defecto cuando el jugador intenta afilar cualquier
 ! cosa.
 [ AfilarSub;
     if (second~=cuchillo) print_ret (The) second, " no sirve para
@@ -770,8 +771,8 @@ Object paredes "paredes"
     print
     "Este juego es original de Aventuras Alcazo y el copyright 
     pertenece a Jaume Alcazo Castellarnau quien ha cedido los 
-    fuentes con fines educativos. (Teclea ALCAZO para saber más 
-    del juego original). La versión que estás jugando ha sido 
+    fuentes con fines educativos. (Teclea ALCAZO para saber mÃ¡s 
+    del juego original). La versiÃ³n que estÃ¡s jugando ha sido 
     reprogramada a partir del original usando el lenguaje 
     Inform, en un proyecto ideado por JLD consistente en 
     implementar el mismo juego usando diferentes lenguajes, para 
@@ -780,34 +781,34 @@ Object paredes "paredes"
     Castellarnau.^^";
     print "Aunque el juego es el mismo, el aspecto de la pantalla al 
         jugar no intenta parecerse al original de Alcazo, sino que tiene 
-        el típico aspecto de los juegos programados en Inform.^^";
-   print "La adaptación a INFSP (Inform Spanish) fue hecha por Sarganar usando un 
+        el tÃ­pico aspecto de los juegos programados en Inform.^^";
+   print "La adaptaciÃ³n a INFSP (Inform Spanish) fue hecha por Sarganar usando un 
    script.^^";
 ];
 
 
 ! Mensaje a mostrar ante el comando ALCAZO
 [ AlcazoSub;
-    print "Primera aventura ~seria~ de Aventuras Alcazo. Guión, 
-    textos y programación de Jaime Alcazo, pruebas Jaime Alcazo, 
-    pruebas adicionales Iván Alcazo.^ Fue necesaria una mañana 
+    print "Primera aventura ~seria~ de Aventuras Alcazo. GuiÃ³n, 
+    textos y programaciÃ³n de Jaime Alcazo, pruebas Jaime Alcazo, 
+    pruebas adicionales IvÃ¡n Alcazo.^ Fue necesaria una maÃ±ana 
     de estrujamiento neuronal de Jaime Alcazo para obtener el 
     argumento (ya ves). Fue necesaria una tarde para programarla 
-    y ha sido revisada en algunas ocasiones en días posteriores 
-    a los citados. ^^Versión 1.75.^^ Teclea AYUDA para obtener 
-    la solución de la aventura^^ Gracias por jugar";
+    y ha sido revisada en algunas ocasiones en dÃ­as posteriores 
+    a los citados. ^^VersiÃ³n 1.75.^^ Teclea AYUDA para obtener 
+    la soluciÃ³n de la aventura^^ Gracias por jugar";
 ];
 
 
 ! Mensaje a mostrar ante el comando AYUDA.
 [ AyudaSub;
-    "Ja, ¡Te lo has creído! :-))) No; piensa un poco, amigo, es la
-    aventura más sencilla del mundo, si no puedes con esto, no podrás
+    "Ja, Â¡Te lo has creÃ­do! :-))) No; piensa un poco, amigo, es la
+    aventura mÃ¡s sencilla del mundo, si no puedes con esto, no podrÃ¡s
     con ninguna.^";
 ];
 
     
-! La gramática de los nuevos verbos
+! La gramÃ¡tica de los nuevos verbos
 Verb 'afila'
     * noun 'con' noun            -> Afilar;
 
