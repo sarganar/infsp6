@@ -6,6 +6,6 @@ Género: Fantasía / Ciencia ficción / Costumbrismo
 
 Tipo: Conversacional sin gráficos.
 
-Plataforma: Inform 6.34 con INFSP 6/11 biplataforma
+Plataforma: Inform 6.44 con INFSP 6/12 biplataforma
 
 Resumen: Vives en tu apartamento, confinado por una pandemia y buscando alguna manera de romper el encierro.
