@@ -380,7 +380,7 @@ Array LanguageNumbers table
 !------------------------------------
 ! Conversion de mayusculas/minusculas
 !------------------------------------
-! [INFSP sync #2] Portado de inform6lib 6.12.8 english.h (no existia en la
+! [INFSP 20260927] Portado de inform6lib 6.12.8 english.h (no existia en la
 ! base 6-11 ni en INFSP 0.9). El comentario original dice "for ZSCII matching
 ! ISO 8859-1" pero en realidad opera sobre los codigos ZSCII "extra
 ! characters" de la Tabla 3 del Z-Machine Standard (155-251), que NO son los
@@ -1200,7 +1200,7 @@ print "cientos"; rfalse;
         !print "^   LanguageVerb: Verbo no es irregular.^"; ! infsp debug
       
       ! Tatar de matchear con la brújula - 807.7 infsp
-      ! [INFSP sync #5] Antes imprimia el generico "ir hacia algun lado"
+      ! [INFSP 20260927] Antes imprimia el generico "ir hacia algun lado"
       ! con la llamada real a LanguageDirection comentada. inform6lib (y
       ! la version en ingles de LanguageVerb) imprime el nombre concreto
       ! de la direccion ('north', 'south'...); LanguageDirection ya existe

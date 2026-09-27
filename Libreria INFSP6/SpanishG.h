@@ -198,7 +198,7 @@ Verb meta 'breve'
   *                                   -> LMode1;
 VerboIrregular "cambiar a modo BREVE" with imperativo 'breve';
 
-! [INFSP sync #6] 'normal' pasa a ser LModeNormal, no sinonimo de 'breve'.
+! [INFSP 20260927] 'normal' pasa a ser LModeNormal, no sinonimo de 'breve'.
 ! LModeNormal (inform6lib verblib.h, ya disponible via ++inform6lib) no
 ! fuerza el modo breve: vuelve al modo que tenia el juego al arrancar
 ! (initial_lookmode), sea cual sea. Antes 'normal' aca forzaba LMode1 sin
@@ -326,7 +326,7 @@ VerboIrregular "cambiar el dialecto del juego" with imperativo 'dialecto';
     * number                          -> Showobj ![6/11]
     * multi                           -> Showobj;
 
-  ! [INFSP sync #6] Faltaba, es 'showdict'/'dict' en inform6lib grammar.h.
+  ! [INFSP 20260927] Faltaba, es 'showdict'/'dict' en inform6lib grammar.h.
   Verb meta 'xdiccionario' 'showdict' 'dict'
     *                                 -> ShowDict
     * topic                           -> ShowDict;
@@ -348,9 +348,9 @@ Verb 'coge' 'toma' 'recoge'
   * 'a//' creature                    -> Take
   * multiinside 'de' noun             -> Remove;
 
-! [INFSP sync #7] Portado de inform6lib grammar.h ('carry'/'hold', ambos
-! sinonimos de 'take' separados del verbo principal). Palabras elegidas por
-! el autor: 'lleva'/'sujeta'.
+! [INFSP 20260927] Portado de inform6lib grammar.h ('carry'/'hold', ambos
+! sinonimos de 'take' separados del verbo principal). Palabras elegidas
+! : 'lleva'/'sujeta'.
 Verb 'lleva' 'sujeta'
   * multi                             -> Take
   * multiinside 'de' noun             -> Remove;
@@ -409,7 +409,7 @@ Verb 'vacia'
     * noun 'en' noun                     -> EmptyT
     * noun 'sobre' noun                  -> EmptyT
     * noun 'encima' 'de' noun            -> EmptyT;
-! [INFSP sync #7] Filtro NotPlayer/IsPlayer agregado (como en inform6lib
+! [INFSP 20260927] Filtro NotPlayer/IsPlayer agregado (como en inform6lib
 ! grammar.h: 'noun to noun=NotPlayer -> Transfer; noun to noun=IsPlayer ->
 ! Take;'). "Transferir X a mi" pasaba entero por TransferSub en vez de
 ! TakeSub -- funcionaba (TransferSub llama a AttemptToTakeObject si el
@@ -1005,7 +1005,7 @@ Verb meta 'xlista'
 
 #Default Story 0;
 #Default Headline 0;
-! [INFSP sync #6] Faltaban -- si el juego usa WITHOUT_DIRECTIONS, u_obj/d_obj
+! [INFSP 20260927] Faltaban -- si el juego usa WITHOUT_DIRECTIONS, u_obj/d_obj
 ! (mas arriba en Spanish.h) no se crean, y cualquier referencia global a esas
 ! constantes queda sin valor salvo por este default.
 #Default d_obj NULL;
